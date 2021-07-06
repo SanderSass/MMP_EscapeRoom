@@ -22,7 +22,7 @@ class CommonRoom extends Phaser.Scene {
 
     // OnClicks
     onEngineDoorClick(){
-        this.scene.start("GameScene");
+        this.scene.start("engineRoom");
     }
     onControlDoorClick(){
         this.scene.start("controlRoom");

@@ -1,6 +1,6 @@
-class GameScene extends Phaser.Scene {
+class EngineRoom extends Phaser.Scene {
     constructor() {
-        super('GameScene')
+        super('engineRoom')
     }
     preload() {
         this.roomName;
