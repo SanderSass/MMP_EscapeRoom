@@ -20,13 +20,6 @@ class GameScene extends Phaser.Scene {
         this.load.image('test', '../assets/test.jpg');
     } //end preload
 
-    create() {
-        var box1 = this.add.sprite(300,300, 'test').setInteractive();
-        box1.on('pointerdown', function (pointer){
-            this.setTint(0xff0000);
-        })
-    } //end create
-
     // OnClicks
     onCommonDoorClick(){
         this.scene.start("commonRoom");
