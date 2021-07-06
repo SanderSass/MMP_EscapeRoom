@@ -2,7 +2,6 @@ class GameScene extends Phaser.Scene {
     constructor() {
         super('GameScene')
     }
-
     preload() {
         this.roomName;
         this.load.image('subDoors', 'assets/doors.png');
@@ -16,6 +15,16 @@ class GameScene extends Phaser.Scene {
         commonRoomDoors.setScale(0.2);
 
         commonRoomDoors.on('pointerdown', this.onCommonDoorClick, this);
+
+        this.load.image('background', '../assets/background.jpg');
+        this.load.image('test', '../assets/test.jpg');
+    } //end preload
+
+    create() {
+        var box1 = this.add.sprite(300,300, 'test').setInteractive();
+        box1.on('pointerdown', function (pointer){
+            this.setTint(0xff0000);
+        })
     } //end create
 
     // OnClicks
@@ -24,7 +33,6 @@ class GameScene extends Phaser.Scene {
     }
 
     update() {
-
     } //end update
 
 
