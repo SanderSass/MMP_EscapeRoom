@@ -2,8 +2,8 @@
 window.addEventListener('load', () => {
 let config = {
     type: Phaser.AUTO,
-    width: 400,
-    height: 320,
+    width: 800,
+    height: 800,
     backgroundColor: 0x999999,
     physics: {
         default: 'arcade',
@@ -15,7 +15,6 @@ let config = {
         }
     },
     scale: {
-        mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
         parent: "theGame"
     },
