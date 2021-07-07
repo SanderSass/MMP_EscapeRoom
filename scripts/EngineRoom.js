@@ -4,28 +4,62 @@ class EngineRoom extends Phaser.Scene {
     }
     preload() {
         this.roomName;
-        this.load.image('subDoors', 'assets/doors.png');
+        this.oxygenValve;
+
+        this.load.image('engineRoom', 'assets/engineRoom.png');
+        this.load.image('dirArrowToCommonRoom', 'assets/directionArrowRight.png');
+        this.load.image('oxygenValve', 'assets/valve.png');
 
     } //end preload
 
     create() {
-        this.roomName = this.add.text(20, 35, 'Engine room', { fontSize: '20px', fill: '#FFFFFF' });
-        var commonRoomDoors = this.add.image(700, 500, 'subDoors').setInteractive();
 
-        commonRoomDoors.setScale(0.2);
+        this.roomName = this.add.text(20, 20, 'Engine room', { fontSize: '30px', fill: '#FFFFFF' });
+        this.roomName.setDepth(1);
 
-        commonRoomDoors.on('pointerdown', this.onCommonDoorClick, this);
+        var bgEngineRoom = this.add.image(0, 0, 'engineRoom').setInteractive();
+        this.oxygenValve = this.add.image(567, 139, 'oxygenValve').setInteractive();
+        var dirArrowToCommonRoom = this.add.image(1450, 100, 'dirArrowToCommonRoom').setInteractive();
 
-        this.load.image('background', '../assets/background.jpg');
-        this.load.image('test', '../assets/test.jpg');
+
+        //assets visibility
+        dirArrowToCommonRoom.setAlpha(0.2);
+
+        //assets position
+        bgEngineRoom.setOrigin(0);
+        this.oxygenValve.setOrigin(0.5);
+
+        //assets scale
+        dirArrowToCommonRoom.setScale(0.3);
+
+        //assets Events
+        dirArrowToCommonRoom.on('pointerdown', this.onCommonDoorClick, this);
+        this.oxygenValve.on('pointerdown', this.rotateValve, this);
+
+        dirArrowToCommonRoom.on('pointerover',function(){
+            dirArrowToCommonRoom.setAlpha(1);
+            dirArrowToCommonRoom.on('pointerout',function(){
+                dirArrowToCommonRoom.setAlpha(0.2);
+            });
+        });
+
+
+
+
+
     } //end preload
 
-    // OnClicks
+    // onClick methods
     onCommonDoorClick(){
         this.scene.start("commonRoom");
     }
+    rotateValve(){
+        console.log('clicked');
+        this.oxygenValve.rotate += 0.05;
+    }
 
     update() {
+
     } //end update
 
 

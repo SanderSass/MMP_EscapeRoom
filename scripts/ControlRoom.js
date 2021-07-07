@@ -10,6 +10,8 @@ class ControlRoom extends Phaser.Scene {
     create() {
         this.roomName = this.add.text(20, 35, 'Control room', { fontSize: '20px', fill: '#FFFFFF' });
         var commonRoomDoors = this.add.image(100, 500, 'subDoors').setInteractive();
+
+        //image Scaling
         commonRoomDoors.setScale(0.2);
 
         commonRoomDoors.on('pointerdown', this.onDoorClick, this);

@@ -28,12 +28,15 @@ class CommonRoom extends Phaser.Scene {
         key.setVisible(false);
         remote.setVisible(false).setActive(false);
 
+
         //random number
         value = Phaser.Math.Between(1, 10);
             
         key.setScale(0.2);
         remoteBox.setScale(0.2);
         paintingOnWall.setScale(0.2);
+        //image Scaling
+
         engineRoomDoors.setScale(0.2);
         controlRoomDoors.setScale(0.2);
 
