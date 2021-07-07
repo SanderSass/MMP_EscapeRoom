@@ -7,6 +7,8 @@ var lever2Position;
 var lever3Position;
 var lever4Position;
 var leverSet;
+var foundFuse = false;
+var randomOxygenNr;
 class EngineRoom extends Phaser.Scene {
     constructor() {
         super('engineRoom')
@@ -19,6 +21,7 @@ class EngineRoom extends Phaser.Scene {
         this.oxygenGaugeWidthPercentage = 0;
         this.isPuzzleSolved = false;
         this.counter = 0;
+        this.fuse;
 
         this.load.image('engineRoom', 'assets/engineRoom.png');
         this.load.image('dirArrowToCommonRoom', 'assets/directionArrowRight.png');
@@ -43,7 +46,7 @@ class EngineRoom extends Phaser.Scene {
         this.oxygenGaugeThree = this.add.rectangle(535, 65, this.oxygenGaugeWidthPercentage, 5, 0xBF0000).setInteractive();
         var oxygenMonitor = this.add.image(565, 60, 'oxygenMonitor');
         var dirArrowToCommonRoom = this.add.image(1450, 100, 'dirArrowToCommonRoom').setInteractive();
-        var fuse = this.add.image(750, 80, 'fuse').setInteractive();
+        this.fuse = this.add.image(750, 80, 'fuse').setInteractive();
         var oxygenValveLeftRec = this.add.rectangle(552, 138, 25, 45).setInteractive();
         var oxygenValveRightRec = this.add.rectangle(580, 138, 25, 45).setInteractive();
 
@@ -56,6 +59,7 @@ class EngineRoom extends Phaser.Scene {
 
         //assets visibility
         dirArrowToCommonRoom.setAlpha(0.2);
+        this.fuse.setVisible(false);
 
         //assets position
         bgEngineRoom.setOrigin(0);
@@ -64,7 +68,10 @@ class EngineRoom extends Phaser.Scene {
         //assets scale
         dirArrowToCommonRoom.setScale(0.3);
         oxygenMonitor.setScale(0.8,0.7);
-        fuse.setScale(0.3);
+        this.fuse.setScale(0.3);
+
+        //random number
+        randomOxygenNr = Phaser.Math.Between(10, 60);
 
         //assets Events
         dirArrowToCommonRoom.on('pointerdown', this.onCommonDoorClick, this);
@@ -244,6 +251,10 @@ class EngineRoom extends Phaser.Scene {
             this.oxygenGauge.setFillStyle(0xC4E42E);
             this.oxygenGaugeTwo.setFillStyle(0xE5FF00);
             this.oxygenGaugeThree.setFillStyle(0x39BCE6);
+        }
+        if(this.oxygenGaugeWidthPercentage >= randomOxygenNr){
+            this.fuse.setVisible(true);
+            foundFuse = true;
         }
 
     } //end update
