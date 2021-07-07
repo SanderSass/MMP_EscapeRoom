@@ -21,6 +21,7 @@ class EngineRoom extends Phaser.Scene {
         this.oxygenGaugeWidthPercentage = 0;
         this.isPuzzleSolved = false;
         this.counter = 0;
+        this.fuseCounter = 0;
         this.fuse;
 
         this.load.image('engineRoom', 'assets/engineRoom.png');
@@ -46,7 +47,7 @@ class EngineRoom extends Phaser.Scene {
         this.oxygenGaugeThree = this.add.rectangle(535, 65, this.oxygenGaugeWidthPercentage, 5, 0xBF0000).setInteractive();
         var oxygenMonitor = this.add.image(565, 60, 'oxygenMonitor');
         var dirArrowToCommonRoom = this.add.image(1450, 100, 'dirArrowToCommonRoom').setInteractive();
-        this.fuse = this.add.image(750, 80, 'fuse').setInteractive();
+        this.fuse = this.add.image(750, 172, 'fuse').setInteractive();
         var oxygenValveLeftRec = this.add.rectangle(552, 138, 25, 45).setInteractive();
         var oxygenValveRightRec = this.add.rectangle(580, 138, 25, 45).setInteractive();
 
@@ -253,8 +254,9 @@ class EngineRoom extends Phaser.Scene {
             this.oxygenGaugeThree.setFillStyle(0x39BCE6);
         }
         if(this.oxygenGaugeWidthPercentage >= randomOxygenNr){
-            this.fuse.setVisible(true);
+            this.fuseCounter++;
             foundFuse = true;
+            this.fuse.setVisible(true);
         }
 
     } //end update
