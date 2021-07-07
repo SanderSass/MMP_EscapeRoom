@@ -15,19 +15,21 @@ class CommonRoom extends Phaser.Scene {
         this.load.image('key', 'assets/key.jpg');
         this.load.image('remoteBox', 'assets/remoteBox.png');
         this.load.image('remote', 'assets/remote.jpg');
+        this.load.image('commonRoom', 'assets/commonRoom.png');
     } //end preload
 
     create() {
         this.roomName = this.add.text(20, 35, 'Common room', { fontSize: '20px', fill: '#FFFFFF' });
+        var bgCommonRoom = this.add.image(0, 0, 'commonRoom').setInteractive();
         var engineRoomDoors = this.add.image(100, 500, 'subDoors').setInteractive();
         var controlRoomDoors = this.add.image(700, 500, 'subDoors').setInteractive();
         var paintingOnWall = this.add.image(300, 300, 'painting').setInteractive();
         remoteBox = this.add.image(600, 350, 'remoteBox').setInteractive();
         remote = this.add.image(600, 350, 'remote').setInteractive();
         key = this.add.image(100, 100, 'key').setInteractive();
+        bgCommonRoom.setOrigin(0);
         key.setVisible(false);
         remote.setVisible(false).setActive(false);
-
 
         //random number
         value = Phaser.Math.Between(1, 10);
@@ -35,8 +37,6 @@ class CommonRoom extends Phaser.Scene {
         key.setScale(0.2);
         remoteBox.setScale(0.2);
         paintingOnWall.setScale(0.2);
-        //image Scaling
-
         engineRoomDoors.setScale(0.2);
         controlRoomDoors.setScale(0.2);
 
