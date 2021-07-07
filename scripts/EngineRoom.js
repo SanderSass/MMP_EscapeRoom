@@ -29,7 +29,8 @@ class EngineRoom extends Phaser.Scene {
         this.load.image('oxygenValve', 'assets/valve.png');
         this.load.image('oxygenMonitor', 'assets/monitor.png');
         this.load.image('fuse', 'assets/Fuse.png');
-
+        this.load.image('hintLight', 'assets/light.png');
+        this.load.image('powerControlPanel', 'assets/powerbox.png');
     } //end preload
 
     create() {
@@ -37,10 +38,11 @@ class EngineRoom extends Phaser.Scene {
         this.roomName = this.add.text(20, 20, 'Engine room', { fontSize: '20px', fill: '#FFFFFF' });
         this.oxygenGaugeText = this.add.text(585, 65,  this.oxygenGaugeText + '%', { fontSize: '10px', fill: '#D0D0E4' });
         var bgEngineRoom = this.add.image(0, 0, 'engineRoom').setInteractive();
-        var lever1 = this.add.rectangle(225, 125, 15, 30, 0x6666ff).setInteractive();
-        var lever2 = this.add.rectangle(275, 125, 15, 30, 0x6666ff).setInteractive();
-        var lever3 = this.add.rectangle(325, 125, 15, 30, 0x6666ff).setInteractive();
-        var lever4 = this.add.rectangle(375, 125, 15, 30, 0x6666ff).setInteractive();
+        var powerControlPanel = this.add.image(335, 290, 'powerControlPanel').setInteractive();
+        var lever1 = this.add.rectangle(230, 140, 15, 30, 0x6666ff).setInteractive();
+        var lever2 = this.add.rectangle(270, 140, 15, 30, 0x6666ff).setInteractive();
+        var lever3 = this.add.rectangle(310, 140, 15, 30, 0x6666ff).setInteractive();
+        var lever4 = this.add.rectangle(350, 140, 15, 30, 0x6666ff).setInteractive();
         this.oxygenValve = this.add.image(567, 139, 'oxygenValve').setInteractive();
         this.oxygenGauge = this.add.rectangle(535, 45, this.oxygenGaugeWidthPercentage, 5, 0xBF0000).setInteractive();
         this.oxygenGaugeTwo = this.add.rectangle(535, 55, this.oxygenGaugeWidthPercentage, 5, 0xBF0000).setInteractive();
