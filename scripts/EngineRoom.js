@@ -17,6 +17,9 @@ class EngineRoom extends Phaser.Scene {
         this.oxygenGauge;
         this.oxygenGaugeText = 0;
         this.oxygenGaugeWidthPercentage = 0;
+        this.isPuzzleSolved = false;
+        this.counter = 0;
+
         this.load.image('engineRoom', 'assets/engineRoom.png');
         this.load.image('dirArrowToCommonRoom', 'assets/directionArrowRight.png');
         this.load.image('oxygenValve', 'assets/valve.png');
@@ -142,12 +145,11 @@ class EngineRoom extends Phaser.Scene {
         });
     }
     getDoorCode(){
-        var num1 = Phaser.Math.Between(1, 9);
-        var num2 = Phaser.Math.Between(1, 9);
-        var num3 = Phaser.Math.Between(1, 9);
-        var num4 = Phaser.Math.Between(1, 9);
-        var code = +num1 + +num2 + +num3 + +num4;
-        console.log(code);
+        let num1 = Phaser.Math.Between(1, 9).toString();
+        let num2 = Phaser.Math.Between(1, 9).toString();
+        let num3 = Phaser.Math.Between(1, 9).toString();
+        let num4 = Phaser.Math.Between(1, 9).toString();
+        var code = num1.concat(num2,num3,num4);
         return code;
     }
     setLever1Position(){
@@ -211,10 +213,13 @@ class EngineRoom extends Phaser.Scene {
 
     update() {
         if (lever1Position == waterGauge1 && lever2Position == waterGauge2 && lever3Position == waterGauge3 && lever4Position == waterGauge4) {
-        
-           console.log(this.getDoorCode());
+            this.isPuzzleSolved = true;
+            this.counter++;
+            if(this.isPuzzleSolved === true && this.counter == 1){
+                console.log(this.getDoorCode());
+                this.counter++;
+            }
         }
-        console.log(lever1Position, lever2Position, lever3Position, lever4Position);
         if (this.oxygenGaugeWidthPercentage <= 10){
             this.oxygenGauge.setFillStyle(0xBF0000);
             this.oxygenGaugeTwo.setFillStyle(0xA5A652);
