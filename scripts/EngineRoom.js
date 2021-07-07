@@ -34,7 +34,7 @@ class EngineRoom extends Phaser.Scene {
 
         //assets Events
         dirArrowToCommonRoom.on('pointerdown', this.onCommonDoorClick, this);
-        this.oxygenValve.on('pointerdown', this.rotateValve, this);
+        this.oxygenValve.on('pointerdown', this.rotateValveCounterClockWise, this);
 
         dirArrowToCommonRoom.on('pointerover',function(){
             dirArrowToCommonRoom.setAlpha(1);
@@ -49,9 +49,19 @@ class EngineRoom extends Phaser.Scene {
     onCommonDoorClick(){
         this.scene.start("commonRoom");
     }
-    rotateValve(){
-        console.log('clicked');
-        this.oxygenValve.rotate += 0.05;
+    rotateValveClockWise(){
+        this.tweens.add({
+            targets: this.oxygenValve, //your image that must spin
+            rotation: 5, //rotation value must be radian
+            duration: 800 //duration is in milliseconds
+        });
+    }
+    rotateValveCounterClockWise(){
+        this.tweens.add({
+            targets: this.oxygenValve, //your image that must spin
+            rotation: -5, //rotation value must be radian
+            duration: 800 //duration is in milliseconds
+        });
     }
 
     update() {
