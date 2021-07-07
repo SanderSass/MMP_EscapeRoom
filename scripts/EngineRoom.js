@@ -14,7 +14,7 @@ class EngineRoom extends Phaser.Scene {
 
     create() {
 
-        this.roomName = this.add.text(20, 20, 'Engine room', { fontSize: '30px', fill: '#FFFFFF' });
+        this.roomName = this.add.text(20, 20, 'Engine room', { fontSize: '20px', fill: '#FFFFFF' });
         this.roomName.setDepth(1);
 
         var bgEngineRoom = this.add.image(0, 0, 'engineRoom').setInteractive();
@@ -42,10 +42,6 @@ class EngineRoom extends Phaser.Scene {
                 dirArrowToCommonRoom.setAlpha(0.2);
             });
         });
-
-
-
-
 
     } //end preload
 

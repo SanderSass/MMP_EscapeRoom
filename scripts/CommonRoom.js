@@ -16,14 +16,21 @@ class CommonRoom extends Phaser.Scene {
         this.load.image('remoteBox', 'assets/remoteBox.png');
         this.load.image('remote', 'assets/remote.jpg');
         this.load.image('commonRoom', 'assets/commonRoom.png');
+        this.load.image('dirArrowLeft', 'assets/directionArrow.png');
+        this.load.image('dirArrowRight', 'assets/directionArrowRight.png');
+
+
     } //end preload
 
     create() {
-        this.roomName = this.add.text(20, 35, 'Common room', { fontSize: '20px', fill: '#FFFFFF' });
+        this.roomName = this.add.text(20, 20, 'Common room', { fontSize: '20px', fill: '#FFFFFF' });
+        this.roomName.setDepth(1);
         var bgCommonRoom = this.add.image(0, 0, 'commonRoom').setInteractive();
         var engineRoomDoors = this.add.image(100, 500, 'subDoors').setInteractive();
         var controlRoomDoors = this.add.image(700, 500, 'subDoors').setInteractive();
         var paintingOnWall = this.add.image(1000, 60, 'painting').setInteractive();
+        var dirArrowToEngineRoom = this.add.image(50, 100, 'dirArrowLeft').setInteractive();
+        var dirArrowToControlRoom = this.add.image(1450, 100, 'dirArrowRight').setInteractive();
         remoteBox = this.add.image(1200, 60, 'remoteBox').setInteractive();
         remote = this.add.image(1200, 60, 'remote').setInteractive();
         key = this.add.image(1000, 100, 'key').setInteractive();
@@ -34,6 +41,14 @@ class CommonRoom extends Phaser.Scene {
         key.setVisible(false);
         remote.setVisible(false).setActive(false);
 
+        //assets visibility
+        dirArrowToEngineRoom.setAlpha(0.2);
+        dirArrowToControlRoom.setAlpha(0.2);
+
+        //assets scale
+        dirArrowToEngineRoom.setScale(0.3);
+        dirArrowToControlRoom.setScale(0.3);
+
         //random number
         value = Phaser.Math.Between(1, 10);
             
@@ -43,11 +58,25 @@ class CommonRoom extends Phaser.Scene {
         engineRoomDoors.setScale(0.2);
         controlRoomDoors.setScale(0.2);
 
-        engineRoomDoors.on('pointerdown', this.onEngineDoorClick, this);
-        controlRoomDoors.on('pointerdown', this.onControlDoorClick, this);
+        //assets events
+        dirArrowToEngineRoom.on('pointerdown', this.onEngineDoorClick, this);
+        dirArrowToControlRoom.on('pointerdown', this.onControlDoorClick, this);
         paintingOnWall.on('pointerdown', this.onPaintingClick, this);
         remoteBox.on('pointerdown', this.onRemoteBoxClick, this);
-        
+
+        dirArrowToEngineRoom.on('pointerover',function(){
+            dirArrowToEngineRoom.setAlpha(1);
+            dirArrowToEngineRoom.on('pointerout',function(){
+                dirArrowToEngineRoom.setAlpha(0.2);
+            });
+        });
+        dirArrowToControlRoom.on('pointerover',function(){
+            dirArrowToControlRoom.setAlpha(1);
+            dirArrowToControlRoom.on('pointerout',function(){
+                dirArrowToControlRoom.setAlpha(0.2);
+            });
+        });
+
 
     } //end create
 

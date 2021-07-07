@@ -5,21 +5,34 @@ class ControlRoom extends Phaser.Scene {
 
     preload() {
         this.roomName;
+
+        this.load.image('dirArrowLeft', 'assets/directionArrow.png');
     } //end preload
 
     create() {
-        this.roomName = this.add.text(20, 35, 'Control room', { fontSize: '20px', fill: '#FFFFFF' });
-        var commonRoomDoors = this.add.image(100, 500, 'subDoors').setInteractive();
+        this.roomName = this.add.text(20, 20, 'Control room', { fontSize: '20px', fill: '#FFFFFF' });
+        var dirArrowToCommonRoom = this.add.image(50, 100, 'dirArrowLeft').setInteractive();
 
-        //image Scaling
-        commonRoomDoors.setScale(0.2);
+        //assets visibility
+        dirArrowToCommonRoom.setAlpha(0.2);
 
-        commonRoomDoors.on('pointerdown', this.onDoorClick, this);
+        //assets scale
+        dirArrowToCommonRoom.setScale(0.3);
+
+        //assets events
+        dirArrowToCommonRoom.on('pointerdown', this.onCommonDoorClick, this);
+
+        dirArrowToCommonRoom.on('pointerover',function(){
+            dirArrowToCommonRoom.setAlpha(1);
+            dirArrowToCommonRoom.on('pointerout',function(){
+                dirArrowToCommonRoom.setAlpha(0.2);
+            });
+        });
 
     } //end create
 
     // OnClicks
-    onDoorClick(){
+    onCommonDoorClick(){
         this.scene.start("commonRoom");
     }
 
