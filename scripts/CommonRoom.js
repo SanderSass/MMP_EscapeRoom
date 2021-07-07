@@ -2,6 +2,8 @@ var timesClicked = 0;
 var key;
 var value;
 var foundRemoteKey = false;
+var remoteBox;
+var remote;
 class CommonRoom extends Phaser.Scene {
     constructor() {
         super('commonRoom')
@@ -12,6 +14,7 @@ class CommonRoom extends Phaser.Scene {
         this.load.image('painting', 'assets/painting.jpg');
         this.load.image('key', 'assets/key.jpg');
         this.load.image('remoteBox', 'assets/remoteBox.png');
+        this.load.image('remote', 'assets/remote.jpg');
     } //end preload
 
     create() {
@@ -19,9 +22,11 @@ class CommonRoom extends Phaser.Scene {
         var engineRoomDoors = this.add.image(100, 500, 'subDoors').setInteractive();
         var controlRoomDoors = this.add.image(700, 500, 'subDoors').setInteractive();
         var paintingOnWall = this.add.image(300, 300, 'painting').setInteractive();
+        remoteBox = this.add.image(600, 350, 'remoteBox').setInteractive();
+        remote = this.add.image(600, 350, 'remote').setInteractive();
         key = this.add.image(100, 100, 'key').setInteractive();
-        var remoteBox = this.add.image(500, 500, 'remoteBox').setInteractive();
         key.setVisible(false);
+        remote.setVisible(false).setActive(false);
 
         //random number
         value = Phaser.Math.Between(1, 10);
@@ -35,6 +40,8 @@ class CommonRoom extends Phaser.Scene {
         engineRoomDoors.on('pointerdown', this.onEngineDoorClick, this);
         controlRoomDoors.on('pointerdown', this.onControlDoorClick, this);
         paintingOnWall.on('pointerdown', this.onPaintingClick, this);
+        remoteBox.on('pointerdown', this.onRemoteBoxClick, this);
+        
 
     } //end create
 
@@ -48,11 +55,19 @@ class CommonRoom extends Phaser.Scene {
     onPaintingClick(){
         timesClicked +=1;
     }
+    onRemoteBoxClick(){
+        if (foundRemoteKey == true) {
+            remoteBox.setVisible(false).setActive(false);
+            remote.setActive(true).setVisible(true);
+        }else{
+            console.log("You need to find the key.")
+        }
+    }
 
     update() {
         if (timesClicked > value) {
             key.setVisible(true);
+            foundRemoteKey = true;
         }
-        console.log(value);
     } //end update
 } //end title scene
