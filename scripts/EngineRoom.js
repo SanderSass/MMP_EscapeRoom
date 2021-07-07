@@ -5,6 +5,7 @@ class EngineRoom extends Phaser.Scene {
     preload() {
         this.roomName;
         this.oxygenValve;
+        this.oxygenGauge;
 
         this.load.image('engineRoom', 'assets/engineRoom.png');
         this.load.image('dirArrowToCommonRoom', 'assets/directionArrowRight.png');
@@ -19,8 +20,10 @@ class EngineRoom extends Phaser.Scene {
 
         var bgEngineRoom = this.add.image(0, 0, 'engineRoom').setInteractive();
         this.oxygenValve = this.add.image(567, 139, 'oxygenValve').setInteractive();
+        this.oxygenGauge = this.add.rectangle(505, 50, 10, 5, 0x909B23).setInteractive();
         var dirArrowToCommonRoom = this.add.image(1450, 100, 'dirArrowToCommonRoom').setInteractive();
-
+        var oxygenValveLeftRec = this.add.rectangle(552, 138, 25, 45).setInteractive();
+        var oxygenValveRightRec = this.add.rectangle(580, 138, 25, 45).setInteractive();
 
         //assets visibility
         dirArrowToCommonRoom.setAlpha(0.2);
@@ -34,7 +37,10 @@ class EngineRoom extends Phaser.Scene {
 
         //assets Events
         dirArrowToCommonRoom.on('pointerdown', this.onCommonDoorClick, this);
-        this.oxygenValve.on('pointerdown', this.rotateValveCounterClockWise, this);
+        oxygenValveLeftRec.on('pointerdown', this.rotateValveCounterClockWise, this);
+        oxygenValveRightRec.on('pointerdown', this.rotateValveClockWise, this);
+        oxygenValveRightRec.on('pointerdown', this.oxygenGaugeIncrease, this);
+        oxygenValveRightRec.on('pointerdown', this.oxygenGaugeDecrease, this);
 
         dirArrowToCommonRoom.on('pointerover',function(){
             dirArrowToCommonRoom.setAlpha(1);
@@ -62,6 +68,12 @@ class EngineRoom extends Phaser.Scene {
             rotation: -5, //rotation value must be radian
             duration: 800 //duration is in milliseconds
         });
+    }
+    oxygenGaugeIncrease(){
+        this.oxygenGauge;
+    }
+    oxygenGaugeDecrease(){
+        this.oxygenGauge.width -= 5;
     }
 
     update() {

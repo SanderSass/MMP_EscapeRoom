@@ -11,6 +11,7 @@ class ControlRoom extends Phaser.Scene {
 
     create() {
         this.roomName = this.add.text(20, 20, 'Control room', { fontSize: '20px', fill: '#FFFFFF' });
+        this.roomName.setDepth(1);
         var bgControlRoom = this.add.image(0, 0, 'controlRoom').setInteractive();
         var dirArrowToCommonRoom = this.add.image(50, 100, 'dirArrowLeft').setInteractive();
         bgControlRoom.setOrigin(0);
