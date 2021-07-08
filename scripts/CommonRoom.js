@@ -57,7 +57,7 @@ class CommonRoom extends Phaser.Scene {
         var keypadNumber8 = this.add.rectangle(1317, 138, 20, 20).setInteractive();
         var keypadNumber9 = this.add.rectangle(1342, 138, 20, 20).setInteractive();
         var keypadNumber0 = this.add.rectangle(1317, 160, 20, 20).setInteractive();
-        codeDisplay = this.add.text(1297, 50, "", { fontSize: '18px', fill: '#000000' })
+        codeDisplay = this.add.text(1294, 47, "", { fontSize: '18px', fill: '#000000' })
         codeDisplay.setVisible(false).setActive(false);
 
         // Keeping the painting rotated while switching scenes
