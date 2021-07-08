@@ -91,6 +91,7 @@ class UIScene extends Phaser.Scene{
             this.counterForSafe++;
             this.commonRoomProgressRec.width += 17.25;
         }
+        // note found
         if(foundNote === true && this.counterForNote === 0){
             this.counterForNote++;
             noteCodeText.setText(this.randomNoteCode);
