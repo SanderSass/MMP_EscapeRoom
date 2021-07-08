@@ -14,6 +14,7 @@ var hintLightRed;
 var hintLightGreen;
 var waterPresureCode;
 var waterPresureWarning = "Emergency";
+var isLeverPuzzleSolved = false;
 var leverSet;
 var foundFuse = false;
 var randomOxygenNr;
@@ -27,7 +28,6 @@ class EngineRoom extends Phaser.Scene {
         this.oxygenGauge;
         this.oxygenGaugeText = 0;
         this.oxygenGaugeWidthPercentage = 0;
-        this.isPuzzleSolved = false;
         this.counter = 0; // counters are used to break out of update loop
         this.fuseCounter = 0;
         this.fuse;
@@ -427,9 +427,9 @@ class EngineRoom extends Phaser.Scene {
 
     update() {
         if (lever1Position == waterGauge1 && lever2Position == waterGauge2 && lever3Position == waterGauge3 && lever4Position == waterGauge4) {
-            this.isPuzzleSolved = true;
+            isLeverPuzzleSolved = true;
             this.counter++;
-            if(this.isPuzzleSolved === true && this.counter == 1){
+            if(isLeverPuzzleSolved === true && this.counter == 1){
                 waterPresureCode.setText(this.getDoorCode());
                 this.counter++;
             }
