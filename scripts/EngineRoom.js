@@ -66,7 +66,7 @@ class EngineRoom extends Phaser.Scene {
         var funnel = this.add.image(150, 100, 'funnel').setInteractive();
         
         //Keypad
-        var doorKeypadScreen = this.add.image(1357, 68, 'doorKeypadScreen').setInteractive();
+        var doorKeypadScreen = this.add.image(1357, 64, 'doorKeypadScreen').setInteractive();
         var doorKeyPad = this.add.image(1357, 93, 'keypad').setInteractive();
         var keypadNumberC = this.add.rectangle(1330, 124, 20, 20).setInteractive();
         var keypadNumber1 = this.add.rectangle(1330, 57, 20, 20).setInteractive();
