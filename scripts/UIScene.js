@@ -11,6 +11,7 @@ class UIScene extends Phaser.Scene{
         this.counterForValve = 0;
         this.counterForLevers = 0;
         this.counterForDoors = 0;
+        this.counterForSpark = 0;
 
         this.load.image('UIInventory', 'assets/UIInventory.png');
         this.load.image('UIRoomStatus', 'assets/UIRoomStatus.png');
@@ -48,18 +49,20 @@ class UIScene extends Phaser.Scene{
         if(foundFuse === true && this.counterForValve === 0){
             this.counterForValve++;
             this.fuseVertical.setVisible(true);
-            this.engineRoomProgressRec.width += 23;
+            this.engineRoomProgressRec.width += 17.25;
         }
-        if (foundSparkPlug === true) {
+        if (foundSparkPlug === true && this.counterForSpark === 0) {
+            this.counterForSpark++
             this.sparkPlug.setVisible(true);
+            this.engineRoomProgressRec.width += 17.25;
         }
         if(isLeverPuzzleSolved === true && this.counterForLevers === 0){
             this.counterForLevers++;
-            this.engineRoomProgressRec.width += 23;
+            this.engineRoomProgressRec.width += 17.25;
         }
         if(isDoorUnlocked === true && this.counterForDoors === 0){
             this.counterForDoors++;
-            this.engineRoomProgressRec.width += 23;
+            this.engineRoomProgressRec.width += 17.25;
         }
 
         //common room

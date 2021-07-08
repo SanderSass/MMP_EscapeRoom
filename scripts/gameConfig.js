@@ -19,7 +19,7 @@ let config = {
         parent: "theGame"
     },
     pixelArt: true,
-    scene: [CommonRoom, ControlRoom, UIScene]
+    scene: [EngineRoom, CommonRoom, ControlRoom, UIScene]
 }
 const game = new Phaser.Game(config)
 }) //end load listener
