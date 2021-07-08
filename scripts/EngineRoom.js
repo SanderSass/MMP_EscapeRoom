@@ -54,16 +54,16 @@ class EngineRoom extends Phaser.Scene {
         
         //Keypad
         var doorKeyPad = this.add.image(1357, 93, 'keypad').setInteractive();
-        var keypadNumber1 = this.add.rectangle(1330, 57, 15, 15, 0x6666ff).setInteractive();
-        var keypadNumber2 = this.add.rectangle(1330, 125, 20, 30, 0x6666ff).setInteractive();
-        var keypadNumber3 = this.add.rectangle(1330, 125, 20, 30, 0x6666ff).setInteractive();
-        var keypadNumber4 = this.add.rectangle(1330, 125, 20, 30, 0x6666ff).setInteractive();
-        var keypadNumber5 = this.add.rectangle(1330, 125, 20, 30, 0x6666ff).setInteractive();
-        var keypadNumber6 = this.add.rectangle(1330, 125, 20, 30, 0x6666ff).setInteractive();
-        var keypadNumber7 = this.add.rectangle(1330, 125, 20, 30, 0x6666ff).setInteractive();
-        var keypadNumber8 = this.add.rectangle(1330, 125, 20, 30, 0x6666ff).setInteractive();
-        var keypadNumber9 = this.add.rectangle(1330, 125, 20, 30, 0x6666ff).setInteractive();
-        var keypadNumber0 = this.add.rectangle(1330, 125, 20, 20, 0x6666ff).setInteractive();
+        var keypadNumber1 = this.add.rectangle(1330, 57, 20, 20).setInteractive();
+        var keypadNumber2 = this.add.rectangle(1357, 57, 20, 20).setInteractive();
+        var keypadNumber3 = this.add.rectangle(1383, 57, 20, 20).setInteractive();
+        var keypadNumber4 = this.add.rectangle(1330, 80, 20, 20).setInteractive();
+        var keypadNumber5 = this.add.rectangle(1357, 80, 20, 20).setInteractive();
+        var keypadNumber6 = this.add.rectangle(1383, 80, 20, 20).setInteractive();
+        var keypadNumber7 = this.add.rectangle(1330, 102, 20, 20).setInteractive();
+        var keypadNumber8 = this.add.rectangle(1357, 102, 20, 20).setInteractive();
+        var keypadNumber9 = this.add.rectangle(1383, 102, 20, 20).setInteractive();
+        var keypadNumber0 = this.add.rectangle(1357, 124, 20, 20).setInteractive();
 
         //Water pressure game
         var powerControlPanel = this.add.image(335, 275, 'powerControlPanel').setInteractive();
@@ -217,15 +217,15 @@ class EngineRoom extends Phaser.Scene {
             });
             keypadNumber8.on('pointerover',function(){
                 doorKeyPad.setScale(0.6);
-                keypadNumber7.setVisible(true);
-                keypadNumber7.on('pointerout',function(){
+                keypadNumber8.setVisible(true);
+                keypadNumber8.on('pointerout',function(){
                     doorKeyPad.setScale(0.6);
                 });
             });
             keypadNumber9.on('pointerover',function(){
                 doorKeyPad.setScale(0.6);
-                keypadNumber7.setVisible(true);
-                keypadNumber7.on('pointerout',function(){
+                keypadNumber9.setVisible(true);
+                keypadNumber9.on('pointerout',function(){
                     doorKeyPad.setScale(0.6);
                 });
             });
@@ -248,6 +248,43 @@ class EngineRoom extends Phaser.Scene {
             var num0 = 0;
             console.log(num0);
         });
+        keypadNumber1.on('pointerdown',function(){
+            var num0 = 1;
+            console.log(num0);
+        });
+        keypadNumber2.on('pointerdown',function(){
+            var num0 = 2;
+            console.log(num0);
+        });
+        keypadNumber3.on('pointerdown',function(){
+            var num0 = 3;
+            console.log(num0);
+        });
+        keypadNumber4.on('pointerdown',function(){
+            var num0 = 4;
+            console.log(num0);
+        });
+        keypadNumber5.on('pointerdown',function(){
+            var num0 = 5;
+            console.log(num0);
+        });
+        keypadNumber6.on('pointerdown',function(){
+            var num0 = 6;
+            console.log(num0);
+        });
+        keypadNumber7.on('pointerdown',function(){
+            var num0 = 7;
+            console.log(num0);
+        });
+        keypadNumber8.on('pointerdown',function(){
+            var num0 = 8;
+            console.log(num0);
+        });
+        keypadNumber9.on('pointerdown',function(){
+            var num0 = 9;
+            console.log(num0);
+        });
+
 
         //Pressure minigame
         lever1Position = false;
