@@ -38,7 +38,7 @@ class CommonRoom extends Phaser.Scene {
         
 
         bgCommonRoom.setOrigin(0);
-        bgCommonRoom.setScale(1.425, 1.02);
+        bgCommonRoom.setScale(1.425, 1.1);
         key.setScale(0.2, 0.2)
         key.setVisible(false);
         remote.setVisible(false).setActive(false);

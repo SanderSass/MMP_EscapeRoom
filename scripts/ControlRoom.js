@@ -15,7 +15,7 @@ class ControlRoom extends Phaser.Scene {
         var bgControlRoom = this.add.image(0, 0, 'controlRoom').setInteractive();
         var dirArrowToCommonRoom = this.add.image(50, 100, 'dirArrowLeft').setInteractive();
         bgControlRoom.setOrigin(0);
-        bgControlRoom.setScale(1.02, 0.93);
+        bgControlRoom.setScale(1.02, 1);
         
         //assets visibility
         dirArrowToCommonRoom.setAlpha(0.2);
