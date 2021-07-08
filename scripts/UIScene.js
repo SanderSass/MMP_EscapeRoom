@@ -7,27 +7,30 @@ class UIScene extends Phaser.Scene{
         this.keyVertical;
         this.sparkPlug;
         this.engineRoomProgressRecWidth = 0;
+        this.commonRoomProgressRecWidth = 0;
         this.engineRoomProgressRec;
         this.counterForValve = 0;
         this.counterForLevers = 0;
         this.counterForDoors = 0;
         this.counterForSpark = 0;
+        this.counterForRemoteKey = 0;
 
         this.load.image('UIInventory', 'assets/UIInventory.png');
         this.load.image('UIRoomStatus', 'assets/UIRoomStatus.png');
         this.load.image('UIPlayerCards', 'assets/UIPlayerCards.png');
         this.load.image('fuseVertical', 'assets/FuseVertical.png');
         this.load.image('keyVertical', 'assets/Key.png');
-        this.load.image('sparkPlug', 'assets/sparkPlug.png');
+        this.load.image('sparkPlugAsset', 'assets/sparkPlug.png');
     }
     create(){
-        var UIInventory = this.add.image(750, 265, 'UIInventory').setInteractive();
+        var UIInventory = this.add.image(784, 265, 'UIInventory').setInteractive();
         var UIRoomStatus = this.add.image(1050, 265, 'UIRoomStatus').setInteractive();
         var UIPlayerCards = this.add.image(400, 290, 'UIPlayerCards').setInteractive();
         this.fuseVertical = this.add.image(639, 263, 'fuseVertical').setInteractive();
         this.keyVertical = this.add.image(673, 263, 'keyVertical').setInteractive();
-        this.sparkPlug = this.add.image(710, 263, 'sparkPlug').setInteractive();
+        this.sparkPlug = this.add.image(710, 263, 'sparkPlugAsset').setInteractive();
         this.engineRoomProgressRec = this.add.rectangle(1070, 240, this.engineRoomProgressRecWidth, 10, 0x32FF00);
+        this.commonRoomProgressRec = this.add.rectangle(1070, 265, this.commonRoomProgressRecWidth, 10, 0x32FF00);
 
         //assets visibility
         this.fuseVertical.setVisible(false);
@@ -66,8 +69,10 @@ class UIScene extends Phaser.Scene{
         }
 
         //common room
-        if(foundRemoteKey === true ){
+        if(foundSafeKey === true && this.counterForRemoteKey === 0){
+            this.counterForRemoteKey++;
             this.keyVertical.setVisible(true);
+            this.commonRoomProgressRec.width += 17.25;
         }
 
     }

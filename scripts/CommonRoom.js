@@ -1,10 +1,9 @@
 var timesClicked = 0;
 var key;
 var value;
-var remotePuzzleSolved = false;
-var foundRemoteKey = false;
-var remoteBox;
-var remote;
+var paintingPuzzleSolved = false;
+var foundSafeKey = false;
+var isSafeOpen = false;
 class CommonRoom extends Phaser.Scene {
     constructor() {
         super('commonRoom')
@@ -14,13 +13,13 @@ class CommonRoom extends Phaser.Scene {
         this.roomName;
         this.paintingOnWall;
 
+
         this.load.image('painting', 'assets/painting.jpg');
         this.load.image('key', 'assets/key.png');
-        this.load.image('remoteBox', 'assets/remoteBox.png');
-        this.load.image('remote', 'assets/remote.jpg');
         this.load.image('commonRoom', 'assets/commonRoom.png');
         this.load.image('dirArrowLeft', 'assets/directionArrow.png');
         this.load.image('dirArrowRight', 'assets/directionArrowRight.png');
+        this.load.image('openedSafe', 'assets/openSafe.png');
 
     } //end preload
 
@@ -28,19 +27,25 @@ class CommonRoom extends Phaser.Scene {
         this.roomName = this.add.text(20, 20, 'Common room', { fontSize: '20px', fill: '#FFFFFF' });
         this.roomName.setDepth(1);
         var bgCommonRoom = this.add.image(0, 0, 'commonRoom').setInteractive();
+        this.openedSafe = this.add.image(1210, 124, 'openedSafe').setInteractive();
+        this.safeRec = this.add.rectangle(1210, 124, 60, 70).setInteractive();
         var dirArrowToEngineRoom = this.add.image(50, 100, 'dirArrowLeft').setInteractive();
         var dirArrowToControlRoom = this.add.image(1450, 100, 'dirArrowRight').setInteractive();
-        var bookshelfBox = this.add.rectangle(800, 50, 15, 30, 0x6666ff);
-
-        remoteBox = this.add.image(1200, 60, 'remoteBox').setInteractive();
-        remote = this.add.image(1200, 60, 'remote').setInteractive();
         key = this.add.image(170, 198, 'key').setInteractive();
 
-        if(remotePuzzleSolved === true){
+
+        // Keeping the painting rotated while switching scenes
+        if(paintingPuzzleSolved === true){
             this.paintingOnWall = this.add.image(606, 122, 'painting').setInteractive();
         }else{
             this.paintingOnWall = this.add.image(606, 122, 'painting').setInteractive().setRotation(0.15);
+        }
 
+        // Keeping the safe open while switching scenes
+        if(isSafeOpen === true){
+            this.openedSafe.setVisible(true);
+        }else{
+            this.openedSafe.setVisible(false);
         }
 
         bgCommonRoom.setOrigin(0);
@@ -49,14 +54,14 @@ class CommonRoom extends Phaser.Scene {
         dirArrowToEngineRoom.setAlpha(0.2);
         dirArrowToControlRoom.setAlpha(0.2);
         key.setVisible(false);
-        remote.setVisible(false).setActive(false);
 
         //assets scale
         bgCommonRoom.setScale(1.425, 1.1);
         dirArrowToEngineRoom.setScale(0.3);
         dirArrowToControlRoom.setScale(0.3);
+        this.openedSafe.setScale(1.5, 1.1);
         key.setScale(0.2);
-        remoteBox.setScale(0.2);
+
         this.paintingOnWall.setScale(0.11);
 
         //random number
@@ -66,9 +71,8 @@ class CommonRoom extends Phaser.Scene {
         dirArrowToEngineRoom.on('pointerdown', this.onEngineDoorClick, this);
         dirArrowToControlRoom.on('pointerdown', this.onControlDoorClick, this);
         this.paintingOnWall.on('pointerdown', this.wallPaintingRotation, this);
-        remoteBox.on('pointerdown', this.onRemoteBoxClick, this);
-        key.on('pointerdown', this.pickUpRemoteKey, this);
-
+        this.safeRec.on('pointerdown', this.openSafe, this);
+        key.on('pointerdown', this.pickUpSafeKey, this);
 
         dirArrowToEngineRoom.on('pointerover',function(){
             dirArrowToEngineRoom.setAlpha(1);
@@ -83,7 +87,6 @@ class CommonRoom extends Phaser.Scene {
             });
         });
 
-
     } //end create
 
     // OnClicks
@@ -93,18 +96,11 @@ class CommonRoom extends Phaser.Scene {
     onControlDoorClick(){
         this.scene.start("controlRoom");
     }
-    onRemoteBoxClick(){
-        if (foundRemoteKey == true) {
-            remoteBox.setVisible(false).setActive(false);
-            remote.setActive(true).setVisible(true);
-        }else{
-            console.log("You need to find the key.")
-        }
-    }
+
     wallPaintingRotation(){
         timesClicked +=1;
-        if(timesClicked >= value && remotePuzzleSolved == false){
-            remotePuzzleSolved = true;
+        if(timesClicked >= value && paintingPuzzleSolved == false){
+            paintingPuzzleSolved = true;
             key.setVisible(true).setRotation(1.5);
             this.tweens.add({
                 targets: this.paintingOnWall , //your image that must spin
@@ -113,9 +109,18 @@ class CommonRoom extends Phaser.Scene {
             });
         }
     }
-    pickUpRemoteKey(){
-        foundRemoteKey = true;
+    pickUpSafeKey(){
+        foundSafeKey = true;
         key.setVisible(false);
+    }
+
+    openSafe(){
+        if(paintingPuzzleSolved === true){
+            this.openedSafe.setVisible(true);
+            isSafeOpen = true;
+        }else{
+            console.log("You need a key!");
+        }
     }
 
     update() {
