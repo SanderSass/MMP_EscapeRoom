@@ -28,7 +28,6 @@ class CommonRoom extends Phaser.Scene {
         this.roomName = this.add.text(20, 20, 'Common room', { fontSize: '20px', fill: '#FFFFFF' });
         this.roomName.setDepth(1);
         var bgCommonRoom = this.add.image(0, 0, 'commonRoom').setInteractive();
-        this.paintingOnWall = this.add.image(606, 122, 'painting').setInteractive().setRotation(0.15);
         var dirArrowToEngineRoom = this.add.image(50, 100, 'dirArrowLeft').setInteractive();
         var dirArrowToControlRoom = this.add.image(1450, 100, 'dirArrowRight').setInteractive();
         var bookshelfBox = this.add.rectangle(800, 50, 15, 30, 0x6666ff);
@@ -36,6 +35,12 @@ class CommonRoom extends Phaser.Scene {
         remote = this.add.image(1200, 60, 'remote').setInteractive();
         key = this.add.image(170, 198, 'key').setInteractive();
 
+        if(remotePuzzleSolved === true){
+            this.paintingOnWall = this.add.image(606, 122, 'painting').setInteractive();
+        }else{
+            this.paintingOnWall = this.add.image(606, 122, 'painting').setInteractive().setRotation(0.15);
+
+        }
 
         bgCommonRoom.setOrigin(0);
 
@@ -51,7 +56,7 @@ class CommonRoom extends Phaser.Scene {
         dirArrowToControlRoom.setScale(0.3);
         key.setScale(0.2);
         remoteBox.setScale(0.2);
-        this.paintingOnWall .setScale(0.11);
+        this.paintingOnWall.setScale(0.11);
 
         //random number
         value = Phaser.Math.Between(1, 10);
@@ -113,6 +118,7 @@ class CommonRoom extends Phaser.Scene {
     }
 
     update() {
+
 
     } //end update
 } //end title scene

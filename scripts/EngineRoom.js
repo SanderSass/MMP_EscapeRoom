@@ -510,9 +510,9 @@ class EngineRoom extends Phaser.Scene {
         
         codeDisplay.text = code;
         if (lever1Position == waterGauge1 && lever2Position == waterGauge2 && lever3Position == waterGauge3 && lever4Position == waterGauge4) {
-            this.isPuzzleSolved = true;
+            isLeverPuzzleSolved = true;
             this.counter++;
-            if(this.isPuzzleSolved === true && this.counter == 1){
+            if(isLeverPuzzleSolved === true && this.counter == 1){
                 waterPresureCode.setText(this.getDoorCode());
                 this.counter++;
             }

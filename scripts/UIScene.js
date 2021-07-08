@@ -10,6 +10,7 @@ class UIScene extends Phaser.Scene{
         this.engineRoomProgressRec;
         this.counterForValve = 0;
         this.counterForLevers = 0;
+        this.counterForDoors = 0;
 
         this.load.image('UIInventory', 'assets/UIInventory.png');
         this.load.image('UIRoomStatus', 'assets/UIRoomStatus.png');
@@ -43,6 +44,7 @@ class UIScene extends Phaser.Scene{
     }
 
     update(){
+        // engine room
         if(foundFuse === true && this.counterForValve === 0){
             this.counterForValve++;
             this.fuseVertical.setVisible(true);
@@ -55,8 +57,15 @@ class UIScene extends Phaser.Scene{
             this.counterForLevers++;
             this.engineRoomProgressRec.width += 23;
         }
+        if(isDoorUnlocked === true && this.counterForDoors === 0){
+            this.counterForDoors++;
+            this.engineRoomProgressRec.width += 23;
+        }
+
+        //common room
         if(foundRemoteKey === true ){
             this.keyVertical.setVisible(true);
         }
+
     }
 }
