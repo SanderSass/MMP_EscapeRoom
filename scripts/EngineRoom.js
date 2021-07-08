@@ -61,7 +61,7 @@ class EngineRoom extends Phaser.Scene {
         var lever2 = this.add.rectangle(270, 140, 20, 30).setInteractive();
         var lever3 = this.add.rectangle(310, 140, 20, 30).setInteractive();
         var lever4 = this.add.rectangle(350, 140, 20, 30).setInteractive();
-        waterPresureCode = this.add.text(290, 80,  waterPresureCode, { fontSize: '10px', fill: '#D0D0E4' });
+        waterPresureCode = this.add.text(260, 80,  waterPresureCode, { fontSize: '10px', fill: '#D0D0E4' });
         this.oxygenValve = this.add.image(567, 139, 'oxygenValve').setInteractive();
         this.oxygenGauge = this.add.rectangle(535, 45, this.oxygenGaugeWidthPercentage, 5, 0xBF0000).setInteractive();
         this.oxygenGaugeTwo = this.add.rectangle(535, 55, this.oxygenGaugeWidthPercentage, 5, 0xBF0000).setInteractive();
@@ -251,7 +251,6 @@ class EngineRoom extends Phaser.Scene {
             this.counter++;
             if(this.isPuzzleSolved === true && this.counter == 1){
                 waterPresureCode.setText(this.getDoorCode());
-                console.log(this.getDoorCode());
                 this.counter++;
             }
         }
