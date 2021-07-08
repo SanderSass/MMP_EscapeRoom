@@ -2,8 +2,8 @@ window.addEventListener('load', () => {
 let config = {
     type: Phaser.AUTO,
     width: 1500,
-    height: 210,
-    backgroundColor: 0x346888,
+    height: 300,
+    backgroundColor: 0x000000,
     physics: {
         default: 'arcade',
         arcade: {
@@ -19,7 +19,7 @@ let config = {
         parent: "theGame"
     },
     pixelArt: true,
-    scene: [EngineRoom, CommonRoom, ControlRoom]
+    scene: [EngineRoom, CommonRoom, ControlRoom, UIScene]
 }
 const game = new Phaser.Game(config)
 }) //end load listener
