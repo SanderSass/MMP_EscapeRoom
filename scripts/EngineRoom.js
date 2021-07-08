@@ -16,6 +16,7 @@ var waterPresureCode;
 var waterPresureCodeInput = Array();
 var waterPresureWarning;
 var codeDisplay;
+var isDoorUnlocked = false;
 var isLeverPuzzleSolved = false;
 var leverSet;
 var code;
@@ -401,9 +402,6 @@ class EngineRoom extends Phaser.Scene {
         foundFuse = true;
         this.fuse.setVisible(false);
     }
-    consoleLog(){
-        console.log("Ayyy");
-    }
     onCommonDoorClick(){
         this.scene.start("commonRoom");
     }
@@ -510,9 +508,12 @@ class EngineRoom extends Phaser.Scene {
         }
 
         if (code === waterPresureCode.text && code != "") {
-            dirArrowToCommonRoom.setVisible(true).setActive(true);
+            isDoorUnlocked = true;
         }
         
+        if (isDoorUnlocked) {
+            dirArrowToCommonRoom.setVisible(true).setActive(true);
+        }
     
         //LeverPos
         if (lever1Position === false) {
