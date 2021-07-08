@@ -554,13 +554,52 @@ class EngineRoom extends Phaser.Scene {
         }else if (lever4Position === true) {
             lever4Image.setTexture('leverOn');
         }
-        if (lever2Position === waterGauge2) {
-            hintLightRed.setVisible(false);
-            hintLightGreen.setVisible(true);
-        }else if (lever2Position !== waterGauge2) {
-            hintLightRed.setVisible(true);
-            hintLightGreen.setVisible(false);
-        }
+        // if (lever2Position === waterGauge2) {
+        //     hintLightRed.setVisible(false);
+        //     hintLightGreen.setVisible(true);
+        // }else if (lever2Position !== waterGauge2) {
+        //     hintLightRed.setVisible(true);
+        //     hintLightGreen.setVisible(false);
+        // }
+
+
+        lever1Image.on('pointerover',function(){
+            if(waterGauge1 === lever1Position) {
+                    hintLightRed.setVisible(false);
+                    hintLightGreen.setVisible(true);
+                } else if(waterGauge1 !== lever1Position) {
+                hintLightRed.setVisible(true);
+                hintLightGreen.setVisible(false);
+            }
+        });
+        lever2Image.on('pointerover',function(){
+            if(waterGauge2 === lever2Position) {
+                hintLightRed.setVisible(false);
+                hintLightGreen.setVisible(true);
+            } else if(waterGauge2 !== lever2Position) {
+                hintLightRed.setVisible(true);
+                hintLightGreen.setVisible(false);
+            }
+        });
+        lever3Image.on('pointerover',function(){
+            if(waterGauge3 === lever3Position) {
+                hintLightRed.setVisible(false);
+                hintLightGreen.setVisible(true);
+            } else if(waterGauge3 !== lever3Position) {
+                hintLightRed.setVisible(true);
+                hintLightGreen.setVisible(false);
+            }
+        });
+        lever4Image.on('pointerover',function(){
+            if(waterGauge4 === lever4Position) {
+                hintLightRed.setVisible(false);
+                hintLightGreen.setVisible(true);
+            } else if(waterGauge4 !== lever4Position) {
+                hintLightRed.setVisible(true);
+                hintLightGreen.setVisible(false);
+            }
+        });
+
         if (this.oxygenGaugeWidthPercentage <= 10){
             this.oxygenGauge.setFillStyle(0xBF0000);
             this.oxygenGaugeTwo.setFillStyle(0xA5A652);
