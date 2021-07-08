@@ -13,6 +13,7 @@ var lever4Image;
 var hintLightRed;
 var hintLightGreen;
 var waterPresureCode;
+var waterPresureWarning = "Emergency";
 var leverSet;
 var foundFuse = false;
 var randomOxygenNr;
@@ -42,6 +43,7 @@ class EngineRoom extends Phaser.Scene {
         this.load.image('powerControlPanel', 'assets/powerbox.png');
         this.load.image('leverOff', 'assets/leverOff.png');
         this.load.image('leverOn', 'assets/leverOn.png');
+        this.load.image('keypad', 'assets/keypad.png');
     } //end preload
 
     create() {
@@ -49,19 +51,27 @@ class EngineRoom extends Phaser.Scene {
         this.roomName = this.add.text(20, 20, 'Engine room', { fontSize: '20px', fill: '#FFFFFF' });
         this.oxygenGaugeText = this.add.text(585, 65,  this.oxygenGaugeText + '%', { fontSize: '10px', fill: '#D0D0E4' });
         var bgEngineRoom = this.add.image(0, 0, 'engineRoom').setInteractive();
-        var powerControlPanel = this.add.image(335, 290, 'powerControlPanel').setInteractive();
-        var waterPresureMonitor = this.add.image(290, 80, 'waterPresureMonitor');
+        
+        //Keypad
+        var doorKeyPad = this.add.image(1357, 93, 'keypad').setInteractive();
+
+        //Water pressure game
+        var powerControlPanel = this.add.image(335, 275, 'powerControlPanel').setInteractive();
+        var waterPresureMonitor = this.add.image(290, 65, 'waterPresureMonitor');
         hintLightRed = this.add.image(310, 280, 'hintLightRed');
         hintLightGreen = this.add.image(310, 280, 'hintLightGreen');
-        lever1Image = this.add.image(230, 140, 'leverOff').setInteractive();
-        lever2Image = this.add.image(270, 140, 'leverOff').setInteractive();
-        lever3Image = this.add.image(310, 140, 'leverOff').setInteractive();
-        lever4Image = this.add.image(350, 140, 'leverOff').setInteractive();
-        var lever1 = this.add.rectangle(230, 140, 20, 30).setInteractive();
-        var lever2 = this.add.rectangle(270, 140, 20, 30).setInteractive();
-        var lever3 = this.add.rectangle(310, 140, 20, 30).setInteractive();
-        var lever4 = this.add.rectangle(350, 140, 20, 30).setInteractive();
-        waterPresureCode = this.add.text(260, 80,  waterPresureCode, { fontSize: '10px', fill: '#D0D0E4' });
+        lever1Image = this.add.image(230, 125, 'leverOff').setInteractive();
+        lever2Image = this.add.image(270, 125, 'leverOff').setInteractive();
+        lever3Image = this.add.image(310, 125, 'leverOff').setInteractive();
+        lever4Image = this.add.image(350, 125, 'leverOff').setInteractive();
+        var lever1 = this.add.rectangle(230, 125, 20, 30).setInteractive();
+        var lever2 = this.add.rectangle(270, 125, 20, 30).setInteractive();
+        var lever3 = this.add.rectangle(310, 125, 20, 30).setInteractive();
+        var lever4 = this.add.rectangle(350, 125, 20, 30).setInteractive();
+        waterPresureCode = this.add.text(255, 60,  waterPresureCode, { fontSize: '10px', fill: '#D0D0E4' });
+        waterPresureWarning = this.add.text(255, 43,  waterPresureWarning, { fontSize: '10px', fill: '#D0D0E4' });
+
+        //Oxygen game
         this.oxygenValve = this.add.image(567, 139, 'oxygenValve').setInteractive();
         this.oxygenGauge = this.add.rectangle(535, 45, this.oxygenGaugeWidthPercentage, 5, 0xBF0000).setInteractive();
         this.oxygenGaugeTwo = this.add.rectangle(535, 55, this.oxygenGaugeWidthPercentage, 5, 0xBF0000).setInteractive();
@@ -89,6 +99,7 @@ class EngineRoom extends Phaser.Scene {
         this.oxygenValve.setOrigin(0.5);
 
         //assets scale
+        doorKeyPad.setScale(0.25);
         dirArrowToCommonRoom.setScale(0.3);
         oxygenMonitor.setScale(0.8,0.7);
         hintLightRed.setScale(0.8,0.8);
@@ -110,6 +121,13 @@ class EngineRoom extends Phaser.Scene {
             dirArrowToCommonRoom.setAlpha(1);
             dirArrowToCommonRoom.on('pointerout',function(){
                 dirArrowToCommonRoom.setAlpha(0.2);
+            });
+        });
+
+        doorKeyPad.on('pointerover',function(){
+            doorKeyPad.setScale(0.6);
+            dirArrowToCommonRoom.on('pointerout',function(){
+                doorKeyPad.setScale(0.25);
             });
         });
 
