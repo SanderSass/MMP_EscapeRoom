@@ -27,7 +27,7 @@ class EngineRoom extends Phaser.Scene {
         this.oxygenGaugeText = 0;
         this.oxygenGaugeWidthPercentage = 0;
         this.isPuzzleSolved = false;
-        this.counter = 0;
+        this.counter = 0; // counters are used to break out of update loop
         this.fuseCounter = 0;
         this.fuse;
 
@@ -105,6 +105,7 @@ class EngineRoom extends Phaser.Scene {
         oxygenValveRightRec.on('pointerdown', this.rotateValveClockWise, this);
         oxygenValveLeftRec.on('pointerdown', this.oxygenGaugeDecrease, this);
         oxygenValveRightRec.on('pointerdown', this.oxygenGaugeIncrease, this);
+        this.fuse.on('pointerdown', this.pickUpFuse, this);
 
         dirArrowToCommonRoom.on('pointerover',function(){
             dirArrowToCommonRoom.setAlpha(1);
@@ -160,6 +161,11 @@ class EngineRoom extends Phaser.Scene {
     } //end preload
 
     // onClick methods
+    pickUpFuse(){
+        foundFuse = true;
+        this.fuse.setVisible(false);
+    }
+
     onCommonDoorClick(){
         this.scene.start("commonRoom");
     }
@@ -307,12 +313,10 @@ class EngineRoom extends Phaser.Scene {
             this.oxygenGaugeTwo.setFillStyle(0xE5FF00);
             this.oxygenGaugeThree.setFillStyle(0x39BCE6);
         }
-        if(this.oxygenGaugeWidthPercentage >= randomOxygenNr){
+        if(this.oxygenGaugeWidthPercentage >= randomOxygenNr && this.fuseCounter === 0 && foundFuse === false){
             this.fuseCounter++;
-            foundFuse = true;
             this.fuse.setVisible(true);
         }
-
     } //end update
 
 
