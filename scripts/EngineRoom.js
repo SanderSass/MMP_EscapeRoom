@@ -54,17 +54,16 @@ class EngineRoom extends Phaser.Scene {
         
         //Keypad
         var doorKeyPad = this.add.image(1357, 93, 'keypad').setInteractive();
-        var keypadNumber1 = this.add.rectangle(270, 125, 15, 15, 0x6666ff).setInteractive();
-        var keypadNumber2 = this.add.rectangle(270, 125, 20, 30, 0x6666ff).setInteractive();
-        var keypadNumber3 = this.add.rectangle(310, 125, 20, 30, 0x6666ff).setInteractive();
-        var keypadNumber4 = this.add.rectangle(350, 125, 20, 30, 0x6666ff).setInteractive();
-        var keypadNumber5 = this.add.rectangle(230, 125, 20, 30, 0x6666ff).setInteractive();
-        var keypadNumber6 = this.add.rectangle(270, 125, 20, 30, 0x6666ff).setInteractive();
-        var keypadNumber7 = this.add.rectangle(310, 125, 20, 30, 0x6666ff).setInteractive();
-        var keypadNumber8 = this.add.rectangle(350, 125, 20, 30, 0x6666ff).setInteractive();
-        var keypadNumber9 = this.add.rectangle(310, 125, 20, 30, 0x6666ff).setInteractive();
-        var keypadNumber0 = this.add.rectangle(1330, 57, 20, 20, 0x6666ff).setInteractive();
-        var keypadNumberHash = this.add.rectangle(350, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumber1 = this.add.rectangle(1330, 57, 15, 15, 0x6666ff).setInteractive();
+        var keypadNumber2 = this.add.rectangle(1330, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumber3 = this.add.rectangle(1330, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumber4 = this.add.rectangle(1330, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumber5 = this.add.rectangle(1330, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumber6 = this.add.rectangle(1330, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumber7 = this.add.rectangle(1330, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumber8 = this.add.rectangle(1330, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumber9 = this.add.rectangle(1330, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumber0 = this.add.rectangle(1330, 125, 20, 20, 0x6666ff).setInteractive();
 
         //Water pressure game
         var powerControlPanel = this.add.image(335, 275, 'powerControlPanel').setInteractive();
@@ -104,7 +103,18 @@ class EngineRoom extends Phaser.Scene {
         dirArrowToCommonRoom.setAlpha(0.2);
         this.fuse.setVisible(false);
         hintLightGreen.setVisible(false);
+        keypadNumber1.setVisible(false).setActive(false);
+        keypadNumber2.setVisible(false).setActive(false);
+        keypadNumber3.setVisible(false).setActive(false);
+        keypadNumber4.setVisible(false).setActive(false);
+        keypadNumber5.setVisible(false).setActive(false);
+        keypadNumber6.setVisible(false).setActive(false);
+        keypadNumber7.setVisible(false).setActive(false);
+        keypadNumber8.setVisible(false).setActive(false);
+        keypadNumber9.setVisible(false).setActive(false);
         keypadNumber0.setVisible(false).setActive(false);
+                
+        
 
         //assets position
         bgEngineRoom.setOrigin(0);
@@ -139,11 +149,104 @@ class EngineRoom extends Phaser.Scene {
 
         doorKeyPad.on('pointerover',function(){
             doorKeyPad.setScale(0.6);
-            keypadNumber0.setVisible(true).setActive(true);
-            doorKeyPad.on('pointerout',function(){
-                doorKeyPad.setScale(0.25);
-                keypadNumber0.setVisible(false).setActive(false);
+            keypadNumber0.setActive(true).setVisible(true);
+            keypadNumber1.setActive(true).setVisible(true);
+            keypadNumber2.setActive(true).setVisible(true);
+            keypadNumber3.setActive(true).setVisible(true);
+            keypadNumber4.setActive(true).setVisible(true);
+            keypadNumber5.setActive(true).setVisible(true);
+            keypadNumber6.setActive(true).setVisible(true);
+            keypadNumber7.setActive(true).setVisible(true);
+            keypadNumber8.setActive(true).setVisible(true);
+            keypadNumber9.setActive(true).setVisible(true);
+            keypadNumber0.on('pointerover',function(){
+                doorKeyPad.setScale(0.6);
+                keypadNumber0.setVisible(true);
+                keypadNumber0.on('pointerout',function(){
+                    doorKeyPad.setScale(0.6);
+                });
             });
+            keypadNumber1.on('pointerover',function(){
+                doorKeyPad.setScale(0.6);
+                keypadNumber1.setVisible(true);
+                keypadNumber1.on('pointerout',function(){
+                    doorKeyPad.setScale(0.6);
+                });
+            });
+            keypadNumber2.on('pointerover',function(){
+                doorKeyPad.setScale(0.6);
+                keypadNumber2.setVisible(true);
+                keypadNumber2.on('pointerout',function(){
+                    doorKeyPad.setScale(0.6);
+                });
+            });
+            keypadNumber3.on('pointerover',function(){
+                doorKeyPad.setScale(0.6);
+                keypadNumber3.setVisible(true);
+                keypadNumber3.on('pointerout',function(){
+                    doorKeyPad.setScale(0.6);
+                });
+            });
+            keypadNumber4.on('pointerover',function(){
+                doorKeyPad.setScale(0.6);
+                keypadNumber4.setVisible(true);
+                keypadNumber4.on('pointerout',function(){
+                    doorKeyPad.setScale(0.6);
+                });
+            });
+            keypadNumber5.on('pointerover',function(){
+                doorKeyPad.setScale(0.6);
+                keypadNumber5.setVisible(true);
+                keypadNumber5.on('pointerout',function(){
+                    doorKeyPad.setScale(0.6);
+                });
+            });
+            keypadNumber6.on('pointerover',function(){
+                doorKeyPad.setScale(0.6);
+                keypadNumber6.setVisible(true);
+                keypadNumber6.on('pointerout',function(){
+                    doorKeyPad.setScale(0.6);
+                });
+            });
+            keypadNumber7.on('pointerover',function(){
+                doorKeyPad.setScale(0.6);
+                keypadNumber7.setVisible(true);
+                keypadNumber7.on('pointerout',function(){
+                    doorKeyPad.setScale(0.6);
+                });
+            });
+            keypadNumber8.on('pointerover',function(){
+                doorKeyPad.setScale(0.6);
+                keypadNumber7.setVisible(true);
+                keypadNumber7.on('pointerout',function(){
+                    doorKeyPad.setScale(0.6);
+                });
+            });
+            keypadNumber9.on('pointerover',function(){
+                doorKeyPad.setScale(0.6);
+                keypadNumber7.setVisible(true);
+                keypadNumber7.on('pointerout',function(){
+                    doorKeyPad.setScale(0.6);
+                });
+            });
+            doorKeyPad.on('pointerout',function(){
+                doorKeyPad.setScale(0.2);
+                keypadNumber0.setActive(false).setVisible(false);
+                keypadNumber1.setActive(false).setVisible(false);
+                keypadNumber2.setActive(false).setVisible(false);
+                keypadNumber3.setActive(false).setVisible(false);
+                keypadNumber4.setActive(false).setVisible(false);
+                keypadNumber5.setActive(false).setVisible(false);
+                keypadNumber6.setActive(false).setVisible(false);
+                keypadNumber7.setActive(false).setVisible(false);
+                keypadNumber8.setActive(false).setVisible(false);
+                keypadNumber9.setActive(false).setVisible(false);
+            });
+        });
+        
+        keypadNumber0.on('pointerdown',function(){
+            var num0 = 0;
+            console.log(num0);
         });
 
         //Pressure minigame
@@ -197,7 +300,9 @@ class EngineRoom extends Phaser.Scene {
         foundFuse = true;
         this.fuse.setVisible(false);
     }
-
+    consoleLog(){
+        console.log("Ayyy");
+    }
     onCommonDoorClick(){
         this.scene.start("commonRoom");
     }
