@@ -54,6 +54,7 @@ class EngineRoom extends Phaser.Scene {
         this.load.image('keypad', 'assets/keypad.png');
         this.load.image('doorKeypadScreen', 'assets/doorKeypadScreen.png');
         this.load.image('sparkPlug', 'assets/sparkPlug.png');
+        this.load.image('funnel', 'assets/Funnel.png');
     } //end preload
 
     create() {
@@ -61,6 +62,8 @@ class EngineRoom extends Phaser.Scene {
         this.roomName = this.add.text(20, 20, 'Engine room', { fontSize: '20px', fill: '#FFFFFF' });
         this.oxygenGaugeText = this.add.text(585, 65,  this.oxygenGaugeText + '%', { fontSize: '10px', fill: '#D0D0E4' });
         var bgEngineRoom = this.add.image(0, 0, 'engineRoom').setInteractive();
+
+        var funnel = this.add.image(150, 100, 'funnel').setInteractive();
         
         //Keypad
         var doorKeypadScreen = this.add.image(1357, 68, 'doorKeypadScreen').setInteractive();
@@ -76,7 +79,7 @@ class EngineRoom extends Phaser.Scene {
         var keypadNumber8 = this.add.rectangle(1357, 102, 20, 20).setInteractive();
         var keypadNumber9 = this.add.rectangle(1383, 102, 20, 20).setInteractive();
         var keypadNumber0 = this.add.rectangle(1357, 124, 20, 20).setInteractive();
-        codeDisplay = this.add.text(1333, 12, "", { fontSize: '20px', fill: '#D0D0E4' })
+        codeDisplay = this.add.text(1333, 12, "", { fontSize: '18px', fill: '#000000' })
         codeDisplay.setVisible(false).setActive(false);
 
         //Water pressure game
@@ -141,6 +144,7 @@ class EngineRoom extends Phaser.Scene {
 
         //assets scale
         doorKeyPad.setScale(0.25);
+        funnel.setScale(0.7);
         dirArrowToCommonRoom.setScale(0.3);
         this.sparkPlug.setScale(0.3);
         oxygenMonitor.setScale(0.8,0.7);
