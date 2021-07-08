@@ -4,6 +4,10 @@ class UIScene extends Phaser.Scene{
     }
     preload(){
         this.fuseVertical;
+        this.engineRoomProgressRecWidth = 0;
+        this.engineRoomProgressRec;
+        this.counterForValve = 0;
+        this.counterForLevers = 0;
 
         this.load.image('UIInventory', 'assets/UIInventory.png');
         this.load.image('UIRoomStatus', 'assets/UIRoomStatus.png');
@@ -15,6 +19,7 @@ class UIScene extends Phaser.Scene{
         var UIRoomStatus = this.add.image(1050, 265, 'UIRoomStatus').setInteractive();
         var UIPlayerCards = this.add.image(400, 290, 'UIPlayerCards').setInteractive();
         this.fuseVertical = this.add.image(639, 263, 'fuseVertical').setInteractive();
+        this.engineRoomProgressRec = this.add.rectangle(1070, 240, this.engineRoomProgressRecWidth, 10, 0x32FF00);
 
         //assets visibility
         this.fuseVertical.setVisible(false);
@@ -25,9 +30,16 @@ class UIScene extends Phaser.Scene{
         UIPlayerCards.setScale(0.5);
         this.fuseVertical.setScale(0.4);
     }
+
     update(){
-        if(foundFuse === true){
+        if(foundFuse === true && this.counterForValve === 0){
+            this.counterForValve++;
             this.fuseVertical.setVisible(true);
+            this.engineRoomProgressRec.width += 23;
+        }
+        if(isLeverPuzzleSolved === true && this.counterForLevers === 0){
+            this.counterForLevers++;
+            this.engineRoomProgressRec.width += 23;
         }
     }
 }
