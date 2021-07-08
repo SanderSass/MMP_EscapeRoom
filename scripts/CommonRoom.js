@@ -31,6 +31,7 @@ class CommonRoom extends Phaser.Scene {
         var dirArrowToEngineRoom = this.add.image(50, 100, 'dirArrowLeft').setInteractive();
         var dirArrowToControlRoom = this.add.image(1450, 100, 'dirArrowRight').setInteractive();
         var bookshelfBox = this.add.rectangle(800, 50, 15, 30, 0x6666ff);
+
         remoteBox = this.add.image(1200, 60, 'remoteBox').setInteractive();
         remote = this.add.image(1200, 60, 'remote').setInteractive();
         key = this.add.image(170, 198, 'key').setInteractive();
