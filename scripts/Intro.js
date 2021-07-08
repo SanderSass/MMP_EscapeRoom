@@ -13,7 +13,6 @@ class Intro extends Phaser.Scene {
     } //end preload
 
     create() {
-
         intro = this.add.video(1150, 600, 'intro');
         intro.setScale(1.2);
         intro.play(true);
