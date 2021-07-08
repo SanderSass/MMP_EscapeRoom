@@ -6,6 +6,12 @@ var lever1Position;
 var lever2Position;
 var lever3Position;
 var lever4Position;
+var lever1Image;
+var lever2Image;
+var lever3Image;
+var lever4Image;
+var hintLightRed;
+var hintLightGreen;
 var leverSet;
 var foundFuse = false;
 var randomOxygenNr;
@@ -28,9 +34,13 @@ class EngineRoom extends Phaser.Scene {
         this.load.image('dirArrowToCommonRoom', 'assets/directionArrowRight.png');
         this.load.image('oxygenValve', 'assets/valve.png');
         this.load.image('oxygenMonitor', 'assets/monitor.png');
+        this.load.image('waterPresureMonitor', 'assets/monitor.png');
+        this.load.image('hintLightRed', 'assets/lightRed.png');
+        this.load.image('hintLightGreen', 'assets/lightGreen.png');
         this.load.image('fuse', 'assets/Fuse.png');
-        this.load.image('hintLight', 'assets/light.png');
         this.load.image('powerControlPanel', 'assets/powerbox.png');
+        this.load.image('leverOff', 'assets/leverOff.png');
+        this.load.image('leverOn', 'assets/leverOn.png');
     } //end preload
 
     create() {
@@ -39,10 +49,18 @@ class EngineRoom extends Phaser.Scene {
         this.oxygenGaugeText = this.add.text(585, 65,  this.oxygenGaugeText + '%', { fontSize: '10px', fill: '#D0D0E4' });
         var bgEngineRoom = this.add.image(0, 0, 'engineRoom').setInteractive();
         var powerControlPanel = this.add.image(335, 290, 'powerControlPanel').setInteractive();
-        var lever1 = this.add.rectangle(230, 140, 15, 30, 0x6666ff).setInteractive();
-        var lever2 = this.add.rectangle(270, 140, 15, 30, 0x6666ff).setInteractive();
-        var lever3 = this.add.rectangle(310, 140, 15, 30, 0x6666ff).setInteractive();
-        var lever4 = this.add.rectangle(350, 140, 15, 30, 0x6666ff).setInteractive();
+        var waterPresureMonitor = this.add.image(290, 80, 'waterPresureMonitor');
+        hintLightRed = this.add.image(310, 280, 'hintLightRed');
+        hintLightGreen = this.add.image(310, 280, 'hintLightGreen');
+        lever1Image = this.add.image(230, 140, 'leverOff').setInteractive();
+        lever2Image = this.add.image(270, 140, 'leverOff').setInteractive();
+        lever3Image = this.add.image(310, 140, 'leverOff').setInteractive();
+        lever4Image = this.add.image(350, 140, 'leverOff').setInteractive();
+        var lever1 = this.add.rectangle(230, 140, 20, 30).setInteractive();
+        var lever2 = this.add.rectangle(270, 140, 20, 30).setInteractive();
+        var lever3 = this.add.rectangle(310, 140, 20, 30).setInteractive();
+        var lever4 = this.add.rectangle(350, 140, 20, 30).setInteractive();
+        
         this.oxygenValve = this.add.image(567, 139, 'oxygenValve').setInteractive();
         this.oxygenGauge = this.add.rectangle(535, 45, this.oxygenGaugeWidthPercentage, 5, 0xBF0000).setInteractive();
         this.oxygenGaugeTwo = this.add.rectangle(535, 55, this.oxygenGaugeWidthPercentage, 5, 0xBF0000).setInteractive();
@@ -63,6 +81,7 @@ class EngineRoom extends Phaser.Scene {
         //assets visibility
         dirArrowToCommonRoom.setAlpha(0.2);
         this.fuse.setVisible(false);
+        hintLightGreen.setVisible(false);
 
         //assets position
         bgEngineRoom.setOrigin(0);
@@ -71,6 +90,9 @@ class EngineRoom extends Phaser.Scene {
         //assets scale
         dirArrowToCommonRoom.setScale(0.3);
         oxygenMonitor.setScale(0.8,0.7);
+        hintLightRed.setScale(0.8,0.8);
+        hintLightGreen.setScale(0.8,0.8);
+        waterPresureMonitor.setScale(0.8,0.7);
         this.fuse.setScale(0.3);
 
         //random number
@@ -168,6 +190,7 @@ class EngineRoom extends Phaser.Scene {
         }else if (lever1Position == false){
             lever1Position = true;
         }
+        console.log(lever1Position);
     }
     setLever2Position(){
         if (lever2Position == true) {
@@ -229,6 +252,34 @@ class EngineRoom extends Phaser.Scene {
                 console.log(this.getDoorCode());
                 this.counter++;
             }
+        }
+        //LeverPos
+        if (lever1Position === false) {
+            lever1Image.setTexture('leverOff');
+        }else if (lever1Position === true) {
+            lever1Image.setTexture('leverOn');
+        }
+        if (lever2Position === false) {
+            lever2Image.setTexture('leverOff');
+        }else if (lever2Position === true) {
+            lever2Image.setTexture('leverOn');
+        }
+        if (lever3Position === false) {
+            lever3Image.setTexture('leverOff');
+        }else if (lever3Position === true) {
+            lever3Image.setTexture('leverOn');
+        }
+        if (lever4Position === false) {
+            lever4Image.setTexture('leverOff');
+        }else if (lever4Position === true) {
+            lever4Image.setTexture('leverOn');
+        }
+        if (lever2Position === waterGauge2) {
+            hintLightRed.setVisible(false);
+            hintLightGreen.setVisible(true);
+        }else if (lever2Position !== waterGauge2) {
+            hintLightRed.setVisible(true);
+            hintLightGreen.setVisible(false);
         }
         if (this.oxygenGaugeWidthPercentage <= 10){
             this.oxygenGauge.setFillStyle(0xBF0000);
