@@ -13,9 +13,13 @@ var lever4Image;
 var hintLightRed;
 var hintLightGreen;
 var waterPresureCode;
-var waterPresureWarning = "Emergency";
+var waterPresureCodeInput = Array();
+var waterPresureWarning;
+var codeDisplay;
 var isLeverPuzzleSolved = false;
 var leverSet;
+var code;
+var dirArrowToCommonRoom;
 var foundFuse = false;
 var randomOxygenNr;
 class EngineRoom extends Phaser.Scene {
@@ -28,6 +32,7 @@ class EngineRoom extends Phaser.Scene {
         this.oxygenGauge;
         this.oxygenGaugeText = 0;
         this.oxygenGaugeWidthPercentage = 0;
+        this.isPuzzleSolved = false;
         this.counter = 0; // counters are used to break out of update loop
         this.fuseCounter = 0;
         this.fuse;
@@ -44,6 +49,7 @@ class EngineRoom extends Phaser.Scene {
         this.load.image('leverOff', 'assets/leverOff.png');
         this.load.image('leverOn', 'assets/leverOn.png');
         this.load.image('keypad', 'assets/keypad.png');
+        this.load.image('doorKeypadScreen', 'assets/doorKeypadScreen.png');
     } //end preload
 
     create() {
@@ -53,7 +59,9 @@ class EngineRoom extends Phaser.Scene {
         var bgEngineRoom = this.add.image(0, 0, 'engineRoom').setInteractive();
         
         //Keypad
+        var doorKeypadScreen = this.add.image(1357, 68, 'doorKeypadScreen').setInteractive();
         var doorKeyPad = this.add.image(1357, 93, 'keypad').setInteractive();
+        var keypadNumberC = this.add.rectangle(1330, 124, 20, 20).setInteractive();
         var keypadNumber1 = this.add.rectangle(1330, 57, 20, 20).setInteractive();
         var keypadNumber2 = this.add.rectangle(1357, 57, 20, 20).setInteractive();
         var keypadNumber3 = this.add.rectangle(1383, 57, 20, 20).setInteractive();
@@ -64,6 +72,8 @@ class EngineRoom extends Phaser.Scene {
         var keypadNumber8 = this.add.rectangle(1357, 102, 20, 20).setInteractive();
         var keypadNumber9 = this.add.rectangle(1383, 102, 20, 20).setInteractive();
         var keypadNumber0 = this.add.rectangle(1357, 124, 20, 20).setInteractive();
+        codeDisplay = this.add.text(1333, 12, "", { fontSize: '20px', fill: '#D0D0E4' })
+        codeDisplay.setVisible(false).setActive(false);
 
         //Water pressure game
         var powerControlPanel = this.add.image(335, 275, 'powerControlPanel').setInteractive();
@@ -79,7 +89,8 @@ class EngineRoom extends Phaser.Scene {
         var lever3 = this.add.rectangle(310, 125, 20, 30).setInteractive();
         var lever4 = this.add.rectangle(350, 125, 20, 30).setInteractive();
         waterPresureCode = this.add.text(255, 60,  waterPresureCode, { fontSize: '10px', fill: '#D0D0E4' });
-        waterPresureWarning = this.add.text(255, 43,  waterPresureWarning, { fontSize: '10px', fill: '#D0D0E4' });
+        waterPresureCode.text = "";
+        waterPresureWarning = this.add.text(255, 43,  "Emergency", { fontSize: '10px', fill: '#D0D0E4' });
 
         //Oxygen game
         this.oxygenValve = this.add.image(567, 139, 'oxygenValve').setInteractive();
@@ -87,7 +98,7 @@ class EngineRoom extends Phaser.Scene {
         this.oxygenGaugeTwo = this.add.rectangle(535, 55, this.oxygenGaugeWidthPercentage, 5, 0xBF0000).setInteractive();
         this.oxygenGaugeThree = this.add.rectangle(535, 65, this.oxygenGaugeWidthPercentage, 5, 0xBF0000).setInteractive();
         var oxygenMonitor = this.add.image(565, 60, 'oxygenMonitor');
-        var dirArrowToCommonRoom = this.add.image(1450, 100, 'dirArrowToCommonRoom').setInteractive();
+        dirArrowToCommonRoom = this.add.image(1450, 100, 'dirArrowToCommonRoom').setInteractive();
         this.fuse = this.add.image(750, 172, 'fuse').setInteractive();
         var oxygenValveLeftRec = this.add.rectangle(552, 138, 25, 45).setInteractive();
         var oxygenValveRightRec = this.add.rectangle(580, 138, 25, 45).setInteractive();
@@ -103,6 +114,7 @@ class EngineRoom extends Phaser.Scene {
         dirArrowToCommonRoom.setAlpha(0.2);
         this.fuse.setVisible(false);
         hintLightGreen.setVisible(false);
+        keypadNumberC.setVisible(false).setActive(false);
         keypadNumber1.setVisible(false).setActive(false);
         keypadNumber2.setVisible(false).setActive(false);
         keypadNumber3.setVisible(false).setActive(false);
@@ -113,6 +125,7 @@ class EngineRoom extends Phaser.Scene {
         keypadNumber8.setVisible(false).setActive(false);
         keypadNumber9.setVisible(false).setActive(false);
         keypadNumber0.setVisible(false).setActive(false);
+        dirArrowToCommonRoom.setVisible(false).setActive(false);
                 
         
 
@@ -127,6 +140,7 @@ class EngineRoom extends Phaser.Scene {
         hintLightRed.setScale(0.8,0.8);
         hintLightGreen.setScale(0.8,0.8);
         waterPresureMonitor.setScale(0.8,0.7);
+        doorKeypadScreen.setScale(0.4);
         this.fuse.setScale(0.3);
 
         //random number
@@ -139,16 +153,20 @@ class EngineRoom extends Phaser.Scene {
         oxygenValveLeftRec.on('pointerdown', this.oxygenGaugeDecrease, this);
         oxygenValveRightRec.on('pointerdown', this.oxygenGaugeIncrease, this);
         this.fuse.on('pointerdown', this.pickUpFuse, this);
-
+        
         dirArrowToCommonRoom.on('pointerover',function(){
             dirArrowToCommonRoom.setAlpha(1);
             dirArrowToCommonRoom.on('pointerout',function(){
                 dirArrowToCommonRoom.setAlpha(0.2);
             });
         });
-
+        
         doorKeyPad.on('pointerover',function(){
             doorKeyPad.setScale(0.6);
+            doorKeypadScreen.setY(20);
+            doorKeypadScreen.setScale(1.2);
+            codeDisplay.setVisible(true).setActive(true);
+            keypadNumberC.setActive(true).setVisible(true);
             keypadNumber0.setActive(true).setVisible(true);
             keypadNumber1.setActive(true).setVisible(true);
             keypadNumber2.setActive(true).setVisible(true);
@@ -159,8 +177,21 @@ class EngineRoom extends Phaser.Scene {
             keypadNumber7.setActive(true).setVisible(true);
             keypadNumber8.setActive(true).setVisible(true);
             keypadNumber9.setActive(true).setVisible(true);
+            keypadNumberC.on('pointerover',function(){
+                doorKeyPad.setScale(0.6);
+                doorKeypadScreen.setY(20);
+                doorKeypadScreen.setScale(1.2);
+                codeDisplay.setVisible(true).setActive(true);
+                keypadNumberC.setVisible(true);
+                keypadNumberC.on('pointerout',function(){
+                    doorKeyPad.setScale(0.6);
+                });
+            });
             keypadNumber0.on('pointerover',function(){
                 doorKeyPad.setScale(0.6);
+                doorKeypadScreen.setY(20);
+                doorKeypadScreen.setScale(1.2);
+                codeDisplay.setVisible(true).setActive(true);
                 keypadNumber0.setVisible(true);
                 keypadNumber0.on('pointerout',function(){
                     doorKeyPad.setScale(0.6);
@@ -168,69 +199,98 @@ class EngineRoom extends Phaser.Scene {
             });
             keypadNumber1.on('pointerover',function(){
                 doorKeyPad.setScale(0.6);
+                doorKeypadScreen.setY(20);
+                doorKeypadScreen.setScale(1.2);
                 keypadNumber1.setVisible(true);
+                codeDisplay.setVisible(true).setActive(true);
                 keypadNumber1.on('pointerout',function(){
                     doorKeyPad.setScale(0.6);
                 });
             });
             keypadNumber2.on('pointerover',function(){
                 doorKeyPad.setScale(0.6);
+                doorKeypadScreen.setY(20);
+                doorKeypadScreen.setScale(1.2);
                 keypadNumber2.setVisible(true);
+                codeDisplay.setVisible(true).setActive(true);
                 keypadNumber2.on('pointerout',function(){
                     doorKeyPad.setScale(0.6);
                 });
             });
             keypadNumber3.on('pointerover',function(){
                 doorKeyPad.setScale(0.6);
+                doorKeypadScreen.setY(20);
+                doorKeypadScreen.setScale(1.2);
                 keypadNumber3.setVisible(true);
+                codeDisplay.setVisible(true).setActive(true);
                 keypadNumber3.on('pointerout',function(){
                     doorKeyPad.setScale(0.6);
                 });
             });
             keypadNumber4.on('pointerover',function(){
                 doorKeyPad.setScale(0.6);
+                doorKeypadScreen.setY(20);
+                doorKeypadScreen.setScale(1.2);
                 keypadNumber4.setVisible(true);
+                codeDisplay.setVisible(true).setActive(true);
                 keypadNumber4.on('pointerout',function(){
                     doorKeyPad.setScale(0.6);
                 });
             });
             keypadNumber5.on('pointerover',function(){
                 doorKeyPad.setScale(0.6);
+                doorKeypadScreen.setY(20);
+                doorKeypadScreen.setScale(1.2);
                 keypadNumber5.setVisible(true);
+                codeDisplay.setVisible(true).setActive(true);
                 keypadNumber5.on('pointerout',function(){
                     doorKeyPad.setScale(0.6);
                 });
             });
             keypadNumber6.on('pointerover',function(){
                 doorKeyPad.setScale(0.6);
+                doorKeypadScreen.setY(20);
+                doorKeypadScreen.setScale(1.2);
                 keypadNumber6.setVisible(true);
+                codeDisplay.setVisible(true).setActive(true);
                 keypadNumber6.on('pointerout',function(){
                     doorKeyPad.setScale(0.6);
                 });
             });
             keypadNumber7.on('pointerover',function(){
                 doorKeyPad.setScale(0.6);
+                doorKeypadScreen.setY(20);
+                doorKeypadScreen.setScale(1.2);
                 keypadNumber7.setVisible(true);
+                codeDisplay.setVisible(true).setActive(true);
                 keypadNumber7.on('pointerout',function(){
                     doorKeyPad.setScale(0.6);
                 });
             });
             keypadNumber8.on('pointerover',function(){
                 doorKeyPad.setScale(0.6);
+                doorKeypadScreen.setY(20);
+                doorKeypadScreen.setScale(1.2);
                 keypadNumber8.setVisible(true);
+                codeDisplay.setVisible(true).setActive(true);
                 keypadNumber8.on('pointerout',function(){
                     doorKeyPad.setScale(0.6);
                 });
             });
             keypadNumber9.on('pointerover',function(){
                 doorKeyPad.setScale(0.6);
+                doorKeypadScreen.setY(20);
+                doorKeypadScreen.setScale(1.2);
                 keypadNumber9.setVisible(true);
+                codeDisplay.setVisible(true).setActive(true);
                 keypadNumber9.on('pointerout',function(){
                     doorKeyPad.setScale(0.6);
                 });
             });
             doorKeyPad.on('pointerout',function(){
                 doorKeyPad.setScale(0.2);
+                doorKeypadScreen.setY(68);
+                doorKeypadScreen.setScale(0.4);
                 keypadNumber0.setActive(false).setVisible(false);
                 keypadNumber1.setActive(false).setVisible(false);
                 keypadNumber2.setActive(false).setVisible(false);
@@ -241,48 +301,52 @@ class EngineRoom extends Phaser.Scene {
                 keypadNumber7.setActive(false).setVisible(false);
                 keypadNumber8.setActive(false).setVisible(false);
                 keypadNumber9.setActive(false).setVisible(false);
+                codeDisplay.setVisible(false).setActive(false);
             });
         });
         
+        keypadNumberC.on('pointerdown',function(){
+            waterPresureCodeInput = Array();
+        });
         keypadNumber0.on('pointerdown',function(){
-            var num0 = 0;
-            console.log(num0);
+            var codeNumToAdd = "0";
+            waterPresureCodeInput.push(codeNumToAdd);
         });
         keypadNumber1.on('pointerdown',function(){
-            var num0 = 1;
-            console.log(num0);
+            var codeNumToAdd = "1";
+            waterPresureCodeInput.push(codeNumToAdd);
         });
         keypadNumber2.on('pointerdown',function(){
-            var num0 = 2;
-            console.log(num0);
+            var codeNumToAdd = "2";
+            waterPresureCodeInput.push(codeNumToAdd);
         });
         keypadNumber3.on('pointerdown',function(){
-            var num0 = 3;
-            console.log(num0);
+            var codeNumToAdd = "3";
+            waterPresureCodeInput.push(codeNumToAdd);
         });
         keypadNumber4.on('pointerdown',function(){
-            var num0 = 4;
-            console.log(num0);
+            var codeNumToAdd = "4";
+            waterPresureCodeInput.push(codeNumToAdd);
         });
         keypadNumber5.on('pointerdown',function(){
-            var num0 = 5;
-            console.log(num0);
+            var codeNumToAdd = "5";
+            waterPresureCodeInput.push(codeNumToAdd);
         });
         keypadNumber6.on('pointerdown',function(){
-            var num0 = 6;
-            console.log(num0);
+            var codeNumToAdd = "6";
+            waterPresureCodeInput.push(codeNumToAdd);
         });
         keypadNumber7.on('pointerdown',function(){
-            var num0 = 7;
-            console.log(num0);
+            var codeNumToAdd = "7";
+            waterPresureCodeInput.push(codeNumToAdd);
         });
         keypadNumber8.on('pointerdown',function(){
-            var num0 = 8;
-            console.log(num0);
+            var codeNumToAdd = "8";
+            waterPresureCodeInput.push(codeNumToAdd);
         });
         keypadNumber9.on('pointerdown',function(){
-            var num0 = 9;
-            console.log(num0);
+            var codeNumToAdd = "9";
+            waterPresureCodeInput.push(codeNumToAdd);
         });
 
 
@@ -426,14 +490,30 @@ class EngineRoom extends Phaser.Scene {
     }
 
     update() {
+        code = "";
+        if (waterPresureCodeInput.length <= 4) {
+            waterPresureCodeInput.forEach(element => {
+                code += element.toString()
+            });
+        } else {
+            waterPresureCodeInput = Array();
+        }
+        
+        codeDisplay.text = code;
         if (lever1Position == waterGauge1 && lever2Position == waterGauge2 && lever3Position == waterGauge3 && lever4Position == waterGauge4) {
-            isLeverPuzzleSolved = true;
+            this.isPuzzleSolved = true;
             this.counter++;
-            if(isLeverPuzzleSolved === true && this.counter == 1){
+            if(this.isPuzzleSolved === true && this.counter == 1){
                 waterPresureCode.setText(this.getDoorCode());
                 this.counter++;
             }
         }
+
+        if (code === waterPresureCode.text && code != "") {
+            dirArrowToCommonRoom.setVisible(true).setActive(true);
+        }
+        
+    
         //LeverPos
         if (lever1Position === false) {
             lever1Image.setTexture('leverOff');
