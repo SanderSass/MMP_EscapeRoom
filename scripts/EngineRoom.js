@@ -54,6 +54,17 @@ class EngineRoom extends Phaser.Scene {
         
         //Keypad
         var doorKeyPad = this.add.image(1357, 93, 'keypad').setInteractive();
+        var keypadNumber1 = this.add.rectangle(270, 125, 20, 20, 0x6666ff).setInteractive();
+        var keypadNumber2 = this.add.rectangle(270, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumber3 = this.add.rectangle(310, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumber4 = this.add.rectangle(350, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumber5 = this.add.rectangle(230, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumber6 = this.add.rectangle(270, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumber7 = this.add.rectangle(310, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumber8 = this.add.rectangle(350, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumber9 = this.add.rectangle(310, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumber0 = this.add.rectangle(1230, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumberHash = this.add.rectangle(350, 125, 20, 30, 0x6666ff).setInteractive();
 
         //Water pressure game
         var powerControlPanel = this.add.image(335, 275, 'powerControlPanel').setInteractive();
@@ -93,6 +104,7 @@ class EngineRoom extends Phaser.Scene {
         dirArrowToCommonRoom.setAlpha(0.2);
         this.fuse.setVisible(false);
         hintLightGreen.setVisible(false);
+        keypadNumber0.setVisible(false).setActive(false);
 
         //assets position
         bgEngineRoom.setOrigin(0);
@@ -127,8 +139,10 @@ class EngineRoom extends Phaser.Scene {
 
         doorKeyPad.on('pointerover',function(){
             doorKeyPad.setScale(0.6);
-            dirArrowToCommonRoom.on('pointerout',function(){
+            keypadNumber0.setVisible(true).setActive(true);
+            doorKeyPad.on('pointerout',function(){
                 doorKeyPad.setScale(0.25);
+                keypadNumber0.setVisible(false).setActive(false);
             });
         });
 
