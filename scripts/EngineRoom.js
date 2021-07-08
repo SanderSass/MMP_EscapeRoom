@@ -16,7 +16,7 @@ var waterPresureCode;
 var waterPresureCodeInput = Array();
 var waterPresureWarning;
 var codeDisplay;
-var isDoorUnlocked = false;
+var isEngineRoomDoorUnlocked = false;
 var isLeverPuzzleSolved = false;
 var leverSet;
 var code;
@@ -523,14 +523,11 @@ class EngineRoom extends Phaser.Scene {
         }
 
         if (code === waterPresureCode.text && code != "") {
-            isDoorUnlocked = true;
+            isEngineRoomDoorUnlocked = true;
         }
         
-        if (isDoorUnlocked) {
+        if (isEngineRoomDoorUnlocked) {
             dirArrowToCommonRoom.setVisible(true).setActive(true);
-            //Jonas add method for updating status bar
-            //
-            //
         }
     
         //LeverPos
