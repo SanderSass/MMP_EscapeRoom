@@ -54,7 +54,7 @@ class EngineRoom extends Phaser.Scene {
         
         //Keypad
         var doorKeyPad = this.add.image(1357, 93, 'keypad').setInteractive();
-        var keypadNumber1 = this.add.rectangle(270, 125, 20, 20, 0x6666ff).setInteractive();
+        var keypadNumber1 = this.add.rectangle(270, 125, 15, 15, 0x6666ff).setInteractive();
         var keypadNumber2 = this.add.rectangle(270, 125, 20, 30, 0x6666ff).setInteractive();
         var keypadNumber3 = this.add.rectangle(310, 125, 20, 30, 0x6666ff).setInteractive();
         var keypadNumber4 = this.add.rectangle(350, 125, 20, 30, 0x6666ff).setInteractive();
@@ -63,7 +63,7 @@ class EngineRoom extends Phaser.Scene {
         var keypadNumber7 = this.add.rectangle(310, 125, 20, 30, 0x6666ff).setInteractive();
         var keypadNumber8 = this.add.rectangle(350, 125, 20, 30, 0x6666ff).setInteractive();
         var keypadNumber9 = this.add.rectangle(310, 125, 20, 30, 0x6666ff).setInteractive();
-        var keypadNumber0 = this.add.rectangle(1230, 125, 20, 30, 0x6666ff).setInteractive();
+        var keypadNumber0 = this.add.rectangle(1330, 57, 20, 20, 0x6666ff).setInteractive();
         var keypadNumberHash = this.add.rectangle(350, 125, 20, 30, 0x6666ff).setInteractive();
 
         //Water pressure game
