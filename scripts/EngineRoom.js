@@ -64,8 +64,8 @@ class EngineRoom extends Phaser.Scene {
         this.oxygenGaugeText = this.add.text(585, 65,  this.oxygenGaugeText + '%', { fontSize: '10px', fill: '#D0D0E4' });
         var bgEngineRoom = this.add.image(0, 0, 'engineRoom').setInteractive();
 
-        //Fuel game 
-        
+        //sparkplug game 
+        var SparkPlugPlacementSpot = this.add.rectangle(300, 118, 40, 18, 0x000000).setInteractive();
         
         //Keypad
         var doorKeypadScreen = this.add.image(1357, 64, 'doorKeypadScreen').setInteractive();
