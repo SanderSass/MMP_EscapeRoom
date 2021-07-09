@@ -24,6 +24,7 @@ var dirArrowToCommonRoom;
 var foundFuse = false;
 var fuelPoured = false;
 var randomOxygenNr;
+var sparkPlugPlaced = false;
 class EngineRoom extends Phaser.Scene {
     constructor() {
         super('engineRoom')
@@ -33,6 +34,7 @@ class EngineRoom extends Phaser.Scene {
         this.oxygenValve;
         this.oxygenGauge;
         this.funnel;
+        this.fuseToPlace;
         this.pouringFuelCan;
         this.oxygenGaugeText = 0;
         this.oxygenGaugeWidthPercentage = 0;
@@ -56,6 +58,7 @@ class EngineRoom extends Phaser.Scene {
         this.load.image('doorKeypadScreen', 'assets/doorKeypadScreen.png');
         this.load.image('funnel', 'assets/Funnel.png');
         this.load.image('pouringFuelCan', 'assets/FuelInTheFunnel.png');
+        this.load.image('sparkPlugToPlace', 'assets/sparkPlug.png');
     } //end preload
 
     create() {
@@ -65,8 +68,9 @@ class EngineRoom extends Phaser.Scene {
         var bgEngineRoom = this.add.image(0, 0, 'engineRoom').setInteractive();
 
         //sparkplug game 
-        var SparkPlugPlacementSpot = this.add.rectangle(300, 118, 40, 18, 0x000000).setInteractive();
-        
+        this.sparkPlugToPlace = this.add.image(111, 150, 'sparkPlugToPlace');
+        var SparkPlugPlacementSpot = this.add.rectangle(111, 150, 18, 40, 0x000000).setInteractive();
+
         //Keypad
         var doorKeypadScreen = this.add.image(1357, 64, 'doorKeypadScreen').setInteractive();
         var doorKeyPad = this.add.image(1357, 93, 'keypad').setInteractive();
@@ -141,6 +145,7 @@ class EngineRoom extends Phaser.Scene {
         keypadNumber8.setVisible(false).setActive(false);
         keypadNumber9.setVisible(false).setActive(false);
         keypadNumber0.setVisible(false).setActive(false);
+        this.sparkPlugToPlace.setVisible(true).setActive(true);
         dirArrowToCommonRoom.setVisible(false).setActive(false);
                 
    
@@ -150,6 +155,7 @@ class EngineRoom extends Phaser.Scene {
 
         //assets scale
         doorKeyPad.setScale(0.25);
+        this.sparkPlugToPlace.setScale(0.25);
         this.funnel.setScale(0.7);
         this.pouringFuelCan.setScale(0.38);
         dirArrowToCommonRoom.setScale(0.3);
@@ -169,6 +175,11 @@ class EngineRoom extends Phaser.Scene {
         oxygenValveRightRec.on('pointerdown', this.rotateValveClockWise, this);
         oxygenValveLeftRec.on('pointerdown', this.oxygenGaugeDecrease, this);
         oxygenValveRightRec.on('pointerdown', this.oxygenGaugeIncrease, this);
+        SparkPlugPlacementSpot.on('pointerdown', function() {
+        console.log("gg");
+            sparkPlugPlaced = true;
+        });
+
         this.fuse.on('pointerdown', this.pickUpFuse, this);
         if (foundFuelCan) {
             this.funnel.on('pointerdown', this.pourFuel, this);
@@ -627,6 +638,13 @@ class EngineRoom extends Phaser.Scene {
         if(this.oxygenGaugeWidthPercentage >= randomOxygenNr && this.fuseCounter === 0 && foundFuse === false){
             this.fuseCounter++;
             this.fuse.setVisible(true);
+        }
+        console.log(foundSparkPlug);
+        console.log(sparkPlugPlaced);
+        if (foundSparkPlug  && sparkPlugPlaced) {
+            this.sparkPlugToPlace.setVisible(true);
+        } else {
+            this.sparkPlugToPlace.setVisible(false);
         }
     } //end update
 

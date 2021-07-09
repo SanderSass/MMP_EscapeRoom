@@ -45,9 +45,6 @@ class ControlRoom extends Phaser.Scene {
         fusePlacementSpot.on('pointerdown', function() {
             fusePlaced = true;
         });
-        //if (foundFuse === true && fuelPoured === true && isCommonRoomDoorUnlocked === true) {
-            
-        //}
 
         this.fuelCan.on('pointerdown', this.onFuelCanClick, this);
         if (foundFuelCan) {
@@ -66,10 +63,6 @@ class ControlRoom extends Phaser.Scene {
         
     } //end create
 
-    // OnClicks
-    //placeFuse(){
-    //    fusePlaced = true;
-    //}
     onFuelCanClick(){
         foundFuelCan = true;
         this.fuelCan.setVisible(false);
