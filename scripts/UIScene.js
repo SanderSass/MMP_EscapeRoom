@@ -17,6 +17,7 @@ class UIScene extends Phaser.Scene{
         this.counterForNote = 0;
         this.counterForFuelCan = 0;
         this.counterForCommonRoomDoors = 0;
+        this.counterForFuelPoured = 0;
         this.randomNoteCode = 0;
 
 
@@ -44,7 +45,7 @@ class UIScene extends Phaser.Scene{
         noteCodeText = this.add.text(755, 260, '', { fontSize: '10px', fill: '#b30000' });
 
         this.playerCardText = this.add.text(263, 280, 'Default', { fontSize: '20px', fill: '#000000' });
-        this.playerCardText.setText(playerName);
+        this.playerCardText.setText(localStorage.getItem(playerName));
 
         //assets visibility
         this.fuseVertical.setVisible(false);
@@ -53,8 +54,8 @@ class UIScene extends Phaser.Scene{
         this.fuelCan.setVisible(false);
         this.note.setVisible(false);
         noteCodeText.setVisible(false);
-        UIPlayerCards.setVisible(false);
-        this.playerCardText.setVisible(false);
+        UIPlayerCards.setVisible(true);
+        this.playerCardText.setVisible(true);
 
         //assets scale
         UIInventory.setScale(0.4);
@@ -89,7 +90,7 @@ class UIScene extends Phaser.Scene{
             this.sparkPlug.setVisible(true);
             this.engineRoomProgressRec.width += 17.25;
         }
-        // solve level minigame
+        // solve lever minigame
         if(isLeverPuzzleSolved === true && this.counterForLevers === 0){
             this.counterForLevers++;
             this.engineRoomProgressRec.width += 17.25;
@@ -98,6 +99,11 @@ class UIScene extends Phaser.Scene{
         if(isEngineRoomDoorUnlocked === true && this.counterForDoors === 0){
             this.counterForDoors++;
             this.engineRoomProgressRec.width += 17.25;
+        }
+        // pour fuel
+        if(fuelPoured && this.counterForFuelPoured ===0){
+            this.counterForFuelPoured++;
+            this.controlRoomProgressRec.width += 17.25;
         }
         //common room
         //find safe key
@@ -124,6 +130,5 @@ class UIScene extends Phaser.Scene{
             this.counterForCommonRoomDoors++;
             this.commonRoomProgressRec.width += 17.25;
         }
-
     }
 }
