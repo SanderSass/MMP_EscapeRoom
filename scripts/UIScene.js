@@ -4,6 +4,7 @@ class UIScene extends Phaser.Scene{
         super({key: 'UIScene', active: true});
     }
     preload(){
+        this.playerCardText;
         this.engineRoomProgressRecWidth = 0;
         this.commonRoomProgressRecWidth = 0;
         this.controlRoomProgressRecWidth = 0;
@@ -42,6 +43,9 @@ class UIScene extends Phaser.Scene{
         this.controlRoomProgressRec = this.add.rectangle(1070, 290, this.controlRoomProgressRecWidth, 10, 0x32FF00);
         noteCodeText = this.add.text(755, 260, '', { fontSize: '10px', fill: '#b30000' });
 
+        this.playerCardText = this.add.text(263, 280, 'Default', { fontSize: '20px', fill: '#000000' });
+        this.playerCardText.setText(playerName);
+
         //assets visibility
         this.fuseVertical.setVisible(false);
         this.keyVertical.setVisible(false);
@@ -50,6 +54,7 @@ class UIScene extends Phaser.Scene{
         this.note.setVisible(false);
         noteCodeText.setVisible(false);
         UIPlayerCards.setVisible(false);
+        this.playerCardText.setVisible(false);
 
         //assets scale
         UIInventory.setScale(0.4);
