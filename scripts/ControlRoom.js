@@ -10,12 +10,14 @@ class ControlRoom extends Phaser.Scene {
         this.load.image('dirArrowLeft', 'assets/directionArrow.png');
         this.load.image('controlRoom', 'assets/controlRoom.png');
         this.load.image('fuelCan', 'assets/Fuel.png');
+        this.load.image('redButton', 'assets/redButton.png');
     } //end preload
 
     create() {
         this.roomName = this.add.text(20, 20, 'Control room', { fontSize: '20px', fill: '#FFFFFF' });
         this.roomName.setDepth(1);
         var bgControlRoom = this.add.image(0, 0, 'controlRoom').setInteractive();
+        var redButton = this.add.image(1294, 136, 'redButton').setInteractive();
         var dirArrowToCommonRoom = this.add.image(50, 100, 'dirArrowLeft').setInteractive();
         this.fuelCan = this.add.image(708, 202, 'fuelCan').setInteractive();
         bgControlRoom.setOrigin(0);
@@ -27,6 +29,7 @@ class ControlRoom extends Phaser.Scene {
         this.fuelCan.setAlpha(0.95);
         //assets scale
         dirArrowToCommonRoom.setScale(0.3);
+        redButton.setScale(0.05);
 
         //assets events
         dirArrowToCommonRoom.on('pointerdown', this.onCommonDoorClick, this);

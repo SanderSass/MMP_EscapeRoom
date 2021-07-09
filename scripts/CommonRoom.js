@@ -31,6 +31,9 @@ class CommonRoom extends Phaser.Scene {
         this.load.image('doorKeypadScreen', 'assets/doorKeypadScreen.png');
         this.load.image('sparkPlug', 'assets/sparkPlug.png');
 
+        //random number
+        value = Phaser.Math.Between(1, 10);
+
     } //end preload
 
     create() {
@@ -117,8 +120,7 @@ class CommonRoom extends Phaser.Scene {
 
         this.paintingOnWall.setScale(0.11);
 
-        //random number
-        value = Phaser.Math.Between(1, 10);
+
 
         //assets events
         dirArrowToEngineRoom.on('pointerdown', this.onEngineDoorClick, this);
