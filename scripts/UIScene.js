@@ -18,6 +18,7 @@ class UIScene extends Phaser.Scene{
         this.counterForSafeKey = 0;
         this.counterForSafe = 0;
         this.counterForNote = 0;
+        this.counterForCommonRoomDoors = 0;
         this.randomNoteCode = 0;
 
 
@@ -63,20 +64,24 @@ class UIScene extends Phaser.Scene{
 
     update(){
         // engine room
+        //find fuse
         if(foundFuse === true && this.counterForValve === 0){
             this.counterForValve++;
             this.fuseVertical.setVisible(true);
             this.engineRoomProgressRec.width += 17.25;
         }
+        // find spark plug
         if (foundSparkPlug === true && this.counterForSpark === 0) {
             this.counterForSpark++
             this.sparkPlug.setVisible(true);
             this.engineRoomProgressRec.width += 17.25;
         }
+        // solve level minigame
         if(isLeverPuzzleSolved === true && this.counterForLevers === 0){
             this.counterForLevers++;
             this.engineRoomProgressRec.width += 17.25;
         }
+        // unlock engine room doors
         if(isEngineRoomDoorUnlocked === true && this.counterForDoors === 0){
             this.counterForDoors++;
             this.engineRoomProgressRec.width += 17.25;
@@ -87,11 +92,12 @@ class UIScene extends Phaser.Scene{
             this.keyVertical.setVisible(true);
             this.commonRoomProgressRec.width += 17.25;
         }
+        //open safe
         if(isSafeOpen === true && this.counterForSafe === 0){
             this.counterForSafe++;
             this.commonRoomProgressRec.width += 17.25;
         }
-        // note found
+        // find note
         if(foundNote === true && this.counterForNote === 0){
             this.counterForNote++;
             noteCodeText.setText(this.randomNoteCode);
@@ -99,5 +105,11 @@ class UIScene extends Phaser.Scene{
             noteCodeText.setVisible(true);
             this.commonRoomProgressRec.width += 17.25;
         }
+        //
+        if(isCommonRoomDoorUnlocked && this.counterForCommonRoomDoors ===0){
+            this.counterForCommonRoomDoors++;
+            this.commonRoomProgressRec.width += 17.25;
+        }
+
     }
 }
