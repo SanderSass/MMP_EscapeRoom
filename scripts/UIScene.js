@@ -8,6 +8,7 @@ class UIScene extends Phaser.Scene{
         this.fuseVertical;
         this.keyVertical;
         this.sparkPlug;
+        this.fuelCan;
         this.engineRoomProgressRecWidth = 0;
         this.commonRoomProgressRecWidth = 0;
         this.engineRoomProgressRec;
@@ -18,6 +19,7 @@ class UIScene extends Phaser.Scene{
         this.counterForSafeKey = 0;
         this.counterForSafe = 0;
         this.counterForNote = 0;
+        this.counterForFuelCan = 0;
         this.counterForCommonRoomDoors = 0;
         this.randomNoteCode = 0;
 
@@ -29,6 +31,7 @@ class UIScene extends Phaser.Scene{
         this.load.image('keyVertical', 'assets/Key.png');
         this.load.image('sparkPlugAsset', 'assets/sparkPlug.png');
         this.load.image('NoteAsset', 'assets/Note.png');
+        this.load.image('fuelCannister', 'assets/FuelUI.png');
     }
     create(){
         var UIInventory = this.add.image(764, 265, 'UIInventory').setInteractive();
@@ -37,6 +40,7 @@ class UIScene extends Phaser.Scene{
         this.fuseVertical = this.add.image(635, 263, 'fuseVertical').setInteractive();
         this.keyVertical = this.add.image(674, 263, 'keyVertical').setInteractive();
         this.sparkPlug = this.add.image(714, 263, 'sparkPlugAsset').setInteractive();
+        this.fuelCan = this.add.image(780, 263, 'fuelCannister').setInteractive();
         this.note = this.add.image(767, 263, 'NoteAsset').setInteractive();
         this.engineRoomProgressRec = this.add.rectangle(1070, 240, this.engineRoomProgressRecWidth, 10, 0x32FF00);
         this.commonRoomProgressRec = this.add.rectangle(1070, 265, this.commonRoomProgressRecWidth, 10, 0x32FF00);
@@ -46,6 +50,7 @@ class UIScene extends Phaser.Scene{
         this.fuseVertical.setVisible(false);
         this.keyVertical.setVisible(false);
         this.sparkPlug.setVisible(false);
+        this.fuelCan.setVisible(false);
         this.note.setVisible(false);
         noteCodeText.setVisible(false);
         UIPlayerCards.setVisible(false);
@@ -57,6 +62,7 @@ class UIScene extends Phaser.Scene{
         this.fuseVertical.setScale(0.4);
         this.keyVertical.setScale(0.4);
         this.sparkPlug.setScale(0.4);
+        this.fuelCan.setScale(0.38);
 
         //random number
         this.randomNoteCode = Phaser.Math.Between(1000, 9999);
@@ -68,6 +74,12 @@ class UIScene extends Phaser.Scene{
         if(foundFuse === true && this.counterForValve === 0){
             this.counterForValve++;
             this.fuseVertical.setVisible(true);
+            this.engineRoomProgressRec.width += 17.25;
+        }
+        // find fuel can
+        if(foundFuelCan === true && this.counterForValve === 0){
+            this.counterForValve++;
+            this.fuelCan.setVisible(true);
             this.engineRoomProgressRec.width += 17.25;
         }
         // find spark plug
