@@ -4,6 +4,7 @@ class UIScene extends Phaser.Scene{
         super({key: 'UIScene', active: true});
     }
     preload(){
+        this.playerCardText;
         this.engineRoomProgressRecWidth = 0;
         this.commonRoomProgressRecWidth = 0;
         this.controlRoomProgressRecWidth = 0;
@@ -16,6 +17,7 @@ class UIScene extends Phaser.Scene{
         this.counterForNote = 0;
         this.counterForFuelCan = 0;
         this.counterForCommonRoomDoors = 0;
+        this.counterForFuelPoured = 0;
         this.randomNoteCode = 0;
 
 
@@ -42,6 +44,9 @@ class UIScene extends Phaser.Scene{
         this.controlRoomProgressRec = this.add.rectangle(1070, 290, this.controlRoomProgressRecWidth, 10, 0x32FF00);
         noteCodeText = this.add.text(755, 260, '', { fontSize: '10px', fill: '#b30000' });
 
+        this.playerCardText = this.add.text(263, 280, 'Default', { fontSize: '20px', fill: '#000000' });
+        this.playerCardText.setText(localStorage.getItem(playerName));
+
         //assets visibility
         this.fuseVertical.setVisible(false);
         this.keyVertical.setVisible(false);
@@ -49,7 +54,8 @@ class UIScene extends Phaser.Scene{
         this.fuelCan.setVisible(false);
         this.note.setVisible(false);
         noteCodeText.setVisible(false);
-        UIPlayerCards.setVisible(false);
+        UIPlayerCards.setVisible(true);
+        this.playerCardText.setVisible(true);
 
         //assets scale
         UIInventory.setScale(0.4);
@@ -82,9 +88,9 @@ class UIScene extends Phaser.Scene{
         if (foundSparkPlug === true && this.counterForSpark === 0) {
             this.counterForSpark++
             this.sparkPlug.setVisible(true);
-            this.engineRoomProgressRec.width += 17.25;
+            this.commonRoomProgressRec.width += 14;
         }
-        // solve level minigame
+        // solve lever minigame
         if(isLeverPuzzleSolved === true && this.counterForLevers === 0){
             this.counterForLevers++;
             this.engineRoomProgressRec.width += 17.25;
@@ -94,17 +100,22 @@ class UIScene extends Phaser.Scene{
             this.counterForDoors++;
             this.engineRoomProgressRec.width += 17.25;
         }
+        // pour fuel
+        if(fuelPoured && this.counterForFuelPoured ===0){
+            this.counterForFuelPoured++;
+            this.engineRoomProgressRec.width += 17.25;
+        }
         //common room
         //find safe key
         if(foundSafeKey === true && this.counterForSafeKey === 0){
             this.counterForSafeKey++;
             this.keyVertical.setVisible(true);
-            this.commonRoomProgressRec.width += 17.25;
+            this.commonRoomProgressRec.width += 14;
         }
         //open safe
         if(isSafeOpen === true && this.counterForSafe === 0){
             this.counterForSafe++;
-            this.commonRoomProgressRec.width += 17.25;
+            this.commonRoomProgressRec.width += 14;
         }
         // find note
         if(foundNote === true && this.counterForNote === 0){
@@ -112,13 +123,12 @@ class UIScene extends Phaser.Scene{
             noteCodeText.setText(this.randomNoteCode);
             this.note.setVisible(true);
             noteCodeText.setVisible(true);
-            this.commonRoomProgressRec.width += 17.25;
+            this.commonRoomProgressRec.width += 14;
         }
         // unlock common room doors
         if(isCommonRoomDoorUnlocked && this.counterForCommonRoomDoors ===0){
             this.counterForCommonRoomDoors++;
-            this.commonRoomProgressRec.width += 17.25;
+            this.commonRoomProgressRec.width += 14;
         }
-
     }
 }

@@ -2,6 +2,7 @@ var introVideo;
 var startButton;
 var counter = 0;
 var videoStarted = false;
+var playerName;
 class Intro extends Phaser.Scene {
     constructor() {
         super('Intro');
@@ -23,6 +24,8 @@ class Intro extends Phaser.Scene {
         introVideo = this.add.video(1150, 600, 'intro');
         startButton = this.add.image(960, 710, 'btnStart').setInteractive();
 
+        playerName = this.add.text(50, 50, 'player', { fontSize: '20px', fill: '#FFFFFF' });
+
         //input form
         this.nameInput = this.add.dom(960, 1000).createFromCache("form");
         this.message = this.add.text(960, 920, "Enter your name", {
@@ -32,11 +35,11 @@ class Intro extends Phaser.Scene {
         }).setOrigin(0.5);
 
         this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
-
         this.returnKey.on("down", event => {
             let name = this.nameInput.getChildByName("name");
             if(name.value != "") {
                 this.message.setText("Hello, " + name.value);
+                localStorage.setItem(playerName, name.value);
                 name.value = "";
             }
         });
@@ -45,6 +48,7 @@ class Intro extends Phaser.Scene {
 
         //assets visibility
         startButton.setVisible(true);
+        playerName.setVisible(false);
 
         //assets depth
         startButton.setDepth(5);
