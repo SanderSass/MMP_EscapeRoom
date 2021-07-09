@@ -167,13 +167,6 @@ class EngineRoom extends Phaser.Scene {
         this.fuse.on('pointerdown', this.pickUpFuse, this);
         this.sparkPlug.on('pointerdown', this.pickUpSparkPlug, this);
         
-        // dirArrowToCommonRoom.on('pointerover',function(){
-        //     dirArrowToCommonRoom.setAlpha(1);
-        //     dirArrowToCommonRoom.on('pointerout',function(){
-        //         dirArrowToCommonRoom.setAlpha(0.2);
-        //     });
-        // });
-        
         doorKeyPad.on('pointerover',function(){
             doorKeyPad.setScale(0.6);
             doorKeypadScreen.setY(20);
