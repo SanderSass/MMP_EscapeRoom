@@ -22,6 +22,7 @@ var leverSet;
 var code;
 var dirArrowToCommonRoom;
 var foundFuse = false;
+var fuelPoured = false;
 var randomOxygenNr;
 class EngineRoom extends Phaser.Scene {
     constructor() {
@@ -31,6 +32,8 @@ class EngineRoom extends Phaser.Scene {
         this.roomName;
         this.oxygenValve;
         this.oxygenGauge;
+        this.funnel;
+        this.pouringFuelCan;
         this.oxygenGaugeText = 0;
         this.oxygenGaugeWidthPercentage = 0;
         this.isPuzzleSolved = false;
@@ -52,6 +55,7 @@ class EngineRoom extends Phaser.Scene {
         this.load.image('keypad', 'assets/keypad.png');
         this.load.image('doorKeypadScreen', 'assets/doorKeypadScreen.png');
         this.load.image('funnel', 'assets/Funnel.png');
+        this.load.image('pouringFuelCan', 'assets/FuelInTheFunnel.png');
     } //end preload
 
     create() {
@@ -60,7 +64,8 @@ class EngineRoom extends Phaser.Scene {
         this.oxygenGaugeText = this.add.text(585, 65,  this.oxygenGaugeText + '%', { fontSize: '10px', fill: '#D0D0E4' });
         var bgEngineRoom = this.add.image(0, 0, 'engineRoom').setInteractive();
 
-        var funnel = this.add.image(150, 100, 'funnel').setInteractive();
+        //Fuel game 
+        
         
         //Keypad
         var doorKeypadScreen = this.add.image(1357, 64, 'doorKeypadScreen').setInteractive();
@@ -96,6 +101,10 @@ class EngineRoom extends Phaser.Scene {
         waterPresureCode.text = "";
         waterPresureWarning = this.add.text(255, 43,  "Emergency", { fontSize: '10px', fill: '#D0D0E4' });
 
+        //fuel game
+        this.pouringFuelCan = this.add.image(170, 75, 'pouringFuelCan');
+        this.funnel = this.add.image(150, 100, 'funnel').setInteractive();
+        
         //Oxygen game
         this.oxygenValve = this.add.image(567, 139, 'oxygenValve').setInteractive();
         this.oxygenGauge = this.add.rectangle(535, 45, this.oxygenGaugeWidthPercentage, 5, 0xBF0000).setInteractive();
@@ -119,6 +128,8 @@ class EngineRoom extends Phaser.Scene {
         dirArrowToCommonRoom.setTintFill(0xFF0000);
         this.fuse.setVisible(false);
         hintLightGreen.setVisible(false);
+
+        this.pouringFuelCan.setVisible(false);
         keypadNumberC.setVisible(false).setActive(false);
         keypadNumber1.setVisible(false).setActive(false);
         keypadNumber2.setVisible(false).setActive(false);
@@ -132,15 +143,15 @@ class EngineRoom extends Phaser.Scene {
         keypadNumber0.setVisible(false).setActive(false);
         dirArrowToCommonRoom.setVisible(false).setActive(false);
                 
-        
-
+   
         //assets position
         bgEngineRoom.setOrigin(0);
         this.oxygenValve.setOrigin(0.5);
 
         //assets scale
         doorKeyPad.setScale(0.25);
-        funnel.setScale(0.7);
+        this.funnel.setScale(0.7);
+        this.pouringFuelCan.setScale(0.38);
         dirArrowToCommonRoom.setScale(0.3);
         oxygenMonitor.setScale(0.8,0.7);
         hintLightRed.setScale(0.8,0.8);
@@ -159,6 +170,10 @@ class EngineRoom extends Phaser.Scene {
         oxygenValveLeftRec.on('pointerdown', this.oxygenGaugeDecrease, this);
         oxygenValveRightRec.on('pointerdown', this.oxygenGaugeIncrease, this);
         this.fuse.on('pointerdown', this.pickUpFuse, this);
+        if (foundFuelCan) {
+            this.funnel.on('pointerdown', this.pourFuel, this);
+        }
+        
         
         doorKeyPad.on('pointerover',function(){
             doorKeyPad.setScale(0.6);
@@ -399,6 +414,10 @@ class EngineRoom extends Phaser.Scene {
     pickUpFuse(){
         foundFuse = true;
         this.fuse.setVisible(false);
+    }
+    pourFuel(){
+        fuelPoured = true;
+        this.pouringFuelCan.setVisible(true).setActive(true);
     }
     onCommonDoorClick(){
         this.scene.start("commonRoom");
