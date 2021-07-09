@@ -4,6 +4,9 @@ let config = {
     width: 1500,
     height: 300,
     backgroundColor: 0x000000,
+    dom: {
+        createContainer: true
+    },
     physics: {
         default: 'arcade',
         arcade: {
