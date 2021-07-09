@@ -19,6 +19,7 @@ class ControlRoom extends Phaser.Scene {
         var bgControlRoom = this.add.image(0, 0, 'controlRoom').setInteractive();
         var redButton = this.add.image(1294, 136, 'redButton').setInteractive();
         var dirArrowToCommonRoom = this.add.image(50, 100, 'dirArrowLeft').setInteractive();
+        var fuelStatus = this.add.rectangle(1120, 167, 58, 16, 0xFF0000).setInteractive();
         this.fuelCan = this.add.image(708, 202, 'fuelCan').setInteractive();
         bgControlRoom.setOrigin(0);
         bgControlRoom.setScale(1.02, 1);
@@ -40,6 +41,10 @@ class ControlRoom extends Phaser.Scene {
             this.fuelCan.setVisible(false);
         } else {
             this.fuelCan.setVisible(true);
+        }
+
+        if (fuelPoured) {
+            fuelStatus.setFillStyle(0x00FF00);
         }
         
     } //end create
