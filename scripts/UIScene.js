@@ -99,6 +99,7 @@ class UIScene extends Phaser.Scene{
             this.engineRoomProgressRec.width += 17.25;
         }
         //common room
+        //find safe key
         if(foundSafeKey === true && this.counterForSafeKey === 0){
             this.counterForSafeKey++;
             this.keyVertical.setVisible(true);
@@ -117,7 +118,7 @@ class UIScene extends Phaser.Scene{
             noteCodeText.setVisible(true);
             this.commonRoomProgressRec.width += 17.25;
         }
-        //
+        // unlock common room doors
         if(isCommonRoomDoorUnlocked && this.counterForCommonRoomDoors ===0){
             this.counterForCommonRoomDoors++;
             this.commonRoomProgressRec.width += 17.25;
