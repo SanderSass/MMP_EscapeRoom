@@ -18,20 +18,13 @@ class ControlRoom extends Phaser.Scene {
         bgControlRoom.setScale(1.02, 1);
         
         //assets visibility
-        dirArrowToCommonRoom.setAlpha(0.2);
+        dirArrowToControlRoom.setTintFill(0xFF0000);
 
         //assets scale
         dirArrowToCommonRoom.setScale(0.3);
 
         //assets events
         dirArrowToCommonRoom.on('pointerdown', this.onCommonDoorClick, this);
-
-        dirArrowToCommonRoom.on('pointerover',function(){
-            dirArrowToCommonRoom.setAlpha(1);
-            dirArrowToCommonRoom.on('pointerout',function(){
-                dirArrowToCommonRoom.setAlpha(0.2);
-            });
-        });
 
     } //end create
 
