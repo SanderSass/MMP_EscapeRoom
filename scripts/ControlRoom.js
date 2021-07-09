@@ -25,7 +25,7 @@ class ControlRoom extends Phaser.Scene {
         this.fuelCan.setScale(0.38);
         
         //assets visibility
-        dirArrowToCommonRoom.setAlpha(0.2);
+        dirArrowToCommonRoom.setTintFill(0xFF0000);
         this.fuelCan.setAlpha(0.95);
         //assets scale
         dirArrowToCommonRoom.setScale(0.3);
@@ -41,14 +41,6 @@ class ControlRoom extends Phaser.Scene {
         } else {
             this.fuelCan.setVisible(true);
         }
-
-        dirArrowToCommonRoom.on('pointerover',function(){
-            dirArrowToCommonRoom.setAlpha(1);
-            dirArrowToCommonRoom.on('pointerout',function(){
-                dirArrowToCommonRoom.setAlpha(0.2);
-            });
-        });
-
         
     } //end create
 
