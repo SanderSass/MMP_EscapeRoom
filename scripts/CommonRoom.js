@@ -90,8 +90,8 @@ class CommonRoom extends Phaser.Scene {
         bgCommonRoom.setOrigin(0);
 
         //assets visibility
-        dirArrowToEngineRoom.setAlpha(0.2);
-        dirArrowToControlRoom.setAlpha(0.2);
+        dirArrowToEngineRoom.setTintFill(0xFF0000);
+        dirArrowToControlRoom.setTintFill(0xFF0000);
         this.note.setVisible(false);
         key.setVisible(false);
         keypadNumberC.setVisible(false).setActive(false);
@@ -131,18 +131,6 @@ class CommonRoom extends Phaser.Scene {
         this.note.on('pointerdown', this.pickUpNote, this);
         this.sparkPlug.on('pointerdown', this.pickUpSparkPlug, this);
 
-        dirArrowToEngineRoom.on('pointerover',function(){
-            dirArrowToEngineRoom.setAlpha(1);
-            dirArrowToEngineRoom.on('pointerout',function(){
-                dirArrowToEngineRoom.setAlpha(0.2);
-            });
-        });
-        dirArrowToControlRoom.on('pointerover',function(){
-            dirArrowToControlRoom.setAlpha(1);
-            dirArrowToControlRoom.on('pointerout',function(){
-                dirArrowToControlRoom.setAlpha(0.2);
-            });
-        });
         // KEYPAD EVENTS
         doorKeyPad.on('pointerover',function(){
             doorKeyPad.setScale(0.6);

@@ -19,13 +19,15 @@ class ControlRoom extends Phaser.Scene {
         var bgControlRoom = this.add.image(0, 0, 'controlRoom').setInteractive();
         var redButton = this.add.image(1294, 136, 'redButton').setInteractive();
         var dirArrowToCommonRoom = this.add.image(50, 100, 'dirArrowLeft').setInteractive();
-        this.fuelCan = this.add.image(1000, 100, 'fuelCan').setInteractive();
+        this.fuelCan = this.add.image(708, 202, 'fuelCan').setInteractive();
         bgControlRoom.setOrigin(0);
         bgControlRoom.setScale(1.02, 1);
         this.fuelCan.setScale(0.38);
-        
+
         //assets visibility
         dirArrowToCommonRoom.setAlpha(0.2);
+        this.fuelCan.setAlpha(0.95);
+        dirArrowToControlRoom.setTintFill(0xFF0000);
 
         //assets scale
         dirArrowToCommonRoom.setScale(0.3);
@@ -34,7 +36,7 @@ class ControlRoom extends Phaser.Scene {
         //assets events
         dirArrowToCommonRoom.on('pointerdown', this.onCommonDoorClick, this);
 
-        
+
         this.fuelCan.on('pointerdown', this.onFuelCanClick, this);
         if (foundFuelCan) {
             this.fuelCan.setVisible(false);
@@ -42,14 +44,6 @@ class ControlRoom extends Phaser.Scene {
             this.fuelCan.setVisible(true);
         }
 
-        dirArrowToCommonRoom.on('pointerover',function(){
-            dirArrowToCommonRoom.setAlpha(1);
-            dirArrowToCommonRoom.on('pointerout',function(){
-                dirArrowToCommonRoom.setAlpha(0.2);
-            });
-        });
-
-        
     } //end create
 
     // OnClicks

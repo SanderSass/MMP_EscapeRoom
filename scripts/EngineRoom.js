@@ -115,7 +115,8 @@ class EngineRoom extends Phaser.Scene {
         this.oxygenGaugeThree.setDepth(1);
 
         //assets visibility
-        dirArrowToCommonRoom.setAlpha(0.2);
+        // dirArrowToCommonRoom.setAlpha(1);
+        dirArrowToCommonRoom.setTintFill(0xFF0000);
         this.fuse.setVisible(false);
         hintLightGreen.setVisible(false);
         keypadNumberC.setVisible(false).setActive(false);
@@ -158,13 +159,6 @@ class EngineRoom extends Phaser.Scene {
         oxygenValveLeftRec.on('pointerdown', this.oxygenGaugeDecrease, this);
         oxygenValveRightRec.on('pointerdown', this.oxygenGaugeIncrease, this);
         this.fuse.on('pointerdown', this.pickUpFuse, this);
-        
-        dirArrowToCommonRoom.on('pointerover',function(){
-            dirArrowToCommonRoom.setAlpha(1);
-            dirArrowToCommonRoom.on('pointerout',function(){
-                dirArrowToCommonRoom.setAlpha(0.2);
-            });
-        });
         
         doorKeyPad.on('pointerover',function(){
             doorKeyPad.setScale(0.6);

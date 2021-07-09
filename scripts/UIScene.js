@@ -40,8 +40,8 @@ class UIScene extends Phaser.Scene{
         this.fuseVertical = this.add.image(635, 263, 'fuseVertical').setInteractive();
         this.keyVertical = this.add.image(674, 263, 'keyVertical').setInteractive();
         this.sparkPlug = this.add.image(714, 263, 'sparkPlugAsset').setInteractive();
-        this.fuelCan = this.add.image(780, 263, 'fuelCannister').setInteractive();
         this.note = this.add.image(767, 263, 'NoteAsset').setInteractive();
+        this.fuelCan = this.add.image(840, 265, 'fuelCannister').setInteractive();
         this.engineRoomProgressRec = this.add.rectangle(1070, 240, this.engineRoomProgressRecWidth, 10, 0x32FF00);
         this.commonRoomProgressRec = this.add.rectangle(1070, 265, this.commonRoomProgressRecWidth, 10, 0x32FF00);
         noteCodeText = this.add.text(755, 260, '', { fontSize: '10px', fill: '#b30000' });
