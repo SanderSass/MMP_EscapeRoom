@@ -1,5 +1,5 @@
-var introVideo
-var startButton
+var introVideo;
+var startButton;
 var counter = 0;
 var videoStarted = false;
 class Intro extends Phaser.Scene {
@@ -14,13 +14,32 @@ class Intro extends Phaser.Scene {
 
         this.load.video('intro', 'assets/video/mmp_intro.mp4', 'loadeddata', false, true); // 15 seconds
         this.load.image('btnStart', 'assets/btnStart.png');
+        this.load.html("form", "form.html");
 
     } //end preload
 
     create() {
 
         introVideo = this.add.video(1150, 600, 'intro');
-        startButton = this.add.image(960, 800, 'btnStart').setInteractive();
+        startButton = this.add.image(960, 710, 'btnStart').setInteractive();
+
+        //input form
+        this.nameInput = this.add.dom(960, 1000).createFromCache("form");
+        this.message = this.add.text(960, 920, "Enter your name", {
+            color: "#FFFFFF",
+            fontSize: 40,
+            fontStyle: "bold"
+        }).setOrigin(0.5);
+
+        this.returnKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER);
+
+        this.returnKey.on("down", event => {
+            let name = this.nameInput.getChildByName("name");
+            if(name.value != "") {
+                this.message.setText("Hello, " + name.value);
+                name.value = "";
+            }
+        });
 
         this.isVideoPaused = introVideo.setPaused(this.isVideoPaused);
 
