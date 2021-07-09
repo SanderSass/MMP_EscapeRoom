@@ -62,8 +62,10 @@ class Intro extends Phaser.Scene {
 
     } //end create
 
-    OnClicks
+    //OnClicks
     startVideo(){
+        this.nameInput.setVisible(false);
+        this.message.setVisible(false);
         this.counterTimer();
         this.isVideoPaused = false;
         introVideo.play(true);
