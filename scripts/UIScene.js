@@ -77,8 +77,8 @@ class UIScene extends Phaser.Scene{
             this.engineRoomProgressRec.width += 17.25;
         }
         // find fuel can
-        if(foundFuelCan === true && this.counterForValve === 0){
-            this.counterForValve++;
+        if(foundFuelCan === true && this.counterForFuelCan === 0){
+            this.counterForFuelCan++;
             this.fuelCan.setVisible(true);
             this.engineRoomProgressRec.width += 17.25;
         }
