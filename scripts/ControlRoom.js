@@ -1,3 +1,4 @@
+var foundFuelCan = false;
 class ControlRoom extends Phaser.Scene {
     constructor() {
         super('controlRoom')
@@ -5,8 +6,10 @@ class ControlRoom extends Phaser.Scene {
 
     preload() {
         this.roomName;
+        this.fuelCan;
         this.load.image('dirArrowLeft', 'assets/directionArrow.png');
         this.load.image('controlRoom', 'assets/controlRoom.png');
+        this.load.image('fuelCan', 'assets/Fuel.png');
     } //end preload
 
     create() {
@@ -14,9 +17,11 @@ class ControlRoom extends Phaser.Scene {
         this.roomName.setDepth(1);
         var bgControlRoom = this.add.image(0, 0, 'controlRoom').setInteractive();
         var dirArrowToCommonRoom = this.add.image(50, 100, 'dirArrowLeft').setInteractive();
+        this.fuelCan = this.add.image(1000, 100, 'fuelCan').setInteractive();
         bgControlRoom.setOrigin(0);
         bgControlRoom.setScale(1.02, 1);
-        
+        this.fuelCan.setScale(0.38);
+
         //assets visibility
         dirArrowToControlRoom.setTintFill(0xFF0000);
 
@@ -26,9 +31,21 @@ class ControlRoom extends Phaser.Scene {
         //assets events
         dirArrowToCommonRoom.on('pointerdown', this.onCommonDoorClick, this);
 
+
+        this.fuelCan.on('pointerdown', this.onFuelCanClick, this);
+        if (foundFuelCan) {
+            this.fuelCan.setVisible(false);
+        } else {
+            this.fuelCan.setVisible(true);
+        }
+
     } //end create
 
     // OnClicks
+    onFuelCanClick(){
+        foundFuelCan = true;
+        this.fuelCan.setVisible(false);
+    }
     onCommonDoorClick(){
         this.scene.start("commonRoom");
     }
