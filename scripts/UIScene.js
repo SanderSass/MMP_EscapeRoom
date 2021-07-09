@@ -4,14 +4,9 @@ class UIScene extends Phaser.Scene{
         super({key: 'UIScene', active: true});
     }
     preload(){
-
-        this.fuseVertical;
-        this.keyVertical;
-        this.sparkPlug;
-        this.fuelCan;
         this.engineRoomProgressRecWidth = 0;
         this.commonRoomProgressRecWidth = 0;
-        this.engineRoomProgressRec;
+        this.controlRoomProgressRecWidth = 0;
         this.counterForValve = 0;
         this.counterForLevers = 0;
         this.counterForDoors = 0;
@@ -44,6 +39,7 @@ class UIScene extends Phaser.Scene{
         this.fuelCan = this.add.image(840, 265, 'fuelCannister').setInteractive();
         this.engineRoomProgressRec = this.add.rectangle(1070, 240, this.engineRoomProgressRecWidth, 10, 0x32FF00);
         this.commonRoomProgressRec = this.add.rectangle(1070, 265, this.commonRoomProgressRecWidth, 10, 0x32FF00);
+        this.controlRoomProgressRec = this.add.rectangle(1070, 290, this.controlRoomProgressRecWidth, 10, 0x32FF00);
         noteCodeText = this.add.text(755, 260, '', { fontSize: '10px', fill: '#b30000' });
 
         //assets visibility
@@ -77,10 +73,10 @@ class UIScene extends Phaser.Scene{
             this.engineRoomProgressRec.width += 17.25;
         }
         // find fuel can
-        if(foundFuelCan === true && this.counterForValve === 0){
-            this.counterForValve++;
+        if(foundFuelCan === true && this.counterForFuelCan === 0){
+            this.counterForFuelCan++;
             this.fuelCan.setVisible(true);
-            this.engineRoomProgressRec.width += 17.25;
+            this.controlRoomProgressRec.width += 25;
         }
         // find spark plug
         if (foundSparkPlug === true && this.counterForSpark === 0) {
