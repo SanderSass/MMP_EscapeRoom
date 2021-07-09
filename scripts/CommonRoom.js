@@ -365,13 +365,15 @@ class CommonRoom extends Phaser.Scene {
     }
 
     openSafe(){
-        if(paintingPuzzleSolved === true){
+        if(paintingPuzzleSolved === true && foundSafeKey === true && foundNote === false ){
             this.openedSafe.setVisible(true);
             this.note.setVisible(true);
             this.safeRec.setVisible(false);
             isSafeOpen = true;
+        }else if(isSafeOpen && foundNote){
+            console.log("There is nothing in the safe");
         }else{
-            console.log("You need a key!");
+            console.log("You need a key");
         }
     }
 
@@ -389,7 +391,6 @@ class CommonRoom extends Phaser.Scene {
 
         if (code === noteCodeText.text && code != "") {
             isCommonRoomDoorUnlocked = true;
-            console.log("opened");
         }
         if (isCommonRoomDoorUnlocked) {
             dirArrowToControlRoom.setVisible(true).setActive(true);
