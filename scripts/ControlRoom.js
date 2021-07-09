@@ -17,14 +17,14 @@ class ControlRoom extends Phaser.Scene {
         this.roomName.setDepth(1);
         var bgControlRoom = this.add.image(0, 0, 'controlRoom').setInteractive();
         var dirArrowToCommonRoom = this.add.image(50, 100, 'dirArrowLeft').setInteractive();
-        this.fuelCan = this.add.image(1000, 100, 'fuelCan').setInteractive();
+        this.fuelCan = this.add.image(708, 202, 'fuelCan').setInteractive();
         bgControlRoom.setOrigin(0);
         bgControlRoom.setScale(1.02, 1);
         this.fuelCan.setScale(0.38);
         
         //assets visibility
         dirArrowToCommonRoom.setAlpha(0.2);
-
+        this.fuelCan.setAlpha(0.95);
         //assets scale
         dirArrowToCommonRoom.setScale(0.3);
 
