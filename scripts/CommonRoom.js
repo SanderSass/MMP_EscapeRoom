@@ -10,6 +10,7 @@ var code;
 var keypadCodeInput = Array();
 var isCommonRoomDoorUnlocked = false;
 var dirArrowToControlRoom;
+var foundSparkPlug = false;
 class CommonRoom extends Phaser.Scene {
     constructor() {
         super('commonRoom')
@@ -18,8 +19,7 @@ class CommonRoom extends Phaser.Scene {
     preload() {
         this.roomName;
         this.paintingOnWall;
-
-
+        this.sparkPlug;
         this.load.image('painting', 'assets/painting.jpg');
         this.load.image('key', 'assets/key.png');
         this.load.image('commonRoom', 'assets/commonRoom.png');
@@ -29,6 +29,7 @@ class CommonRoom extends Phaser.Scene {
         this.load.image('note', 'assets/Note.png');
         this.load.image('keypad', 'assets/keypad.png');
         this.load.image('doorKeypadScreen', 'assets/doorKeypadScreen.png');
+        this.load.image('sparkPlug', 'assets/sparkPlug.png');
 
     } //end preload
 
@@ -59,6 +60,15 @@ class CommonRoom extends Phaser.Scene {
         var keypadNumber0 = this.add.rectangle(1317, 160, 20, 20).setInteractive();
         codeDisplay = this.add.text(1294, 47, "", { fontSize: '18px', fill: '#000000' })
         codeDisplay.setVisible(false).setActive(false);
+
+        this.sparkPlug = this.add.image(470, 170, 'sparkPlug').setInteractive();
+        //Spark plug
+        if (foundSparkPlug) {
+            this.sparkPlug.setVisible(false);
+        } else {
+            this.sparkPlug.setVisible(true);
+        }
+        
 
         // Keeping the painting rotated while switching scenes
         if(paintingPuzzleSolved === true){
@@ -99,6 +109,7 @@ class CommonRoom extends Phaser.Scene {
         dirArrowToEngineRoom.setScale(0.3);
         dirArrowToControlRoom.setScale(0.3);
         this.openedSafe.setScale(1.5, 1.1);
+        this.sparkPlug.setScale(0.3);
         this.note.setScale(0.5);
         key.setScale(0.2);
         doorKeyPad.setScale(0.25);
@@ -116,6 +127,7 @@ class CommonRoom extends Phaser.Scene {
         this.safeRec.on('pointerdown', this.openSafe, this);
         key.on('pointerdown', this.pickUpSafeKey, this);
         this.note.on('pointerdown', this.pickUpNote, this);
+        this.sparkPlug.on('pointerdown', this.pickUpSparkPlug, this);
 
         dirArrowToEngineRoom.on('pointerover',function(){
             dirArrowToEngineRoom.setAlpha(1);
@@ -317,7 +329,6 @@ class CommonRoom extends Phaser.Scene {
             var codeNumToAdd = "9";
             keypadCodeInput.push(codeNumToAdd);
         });
-
     } //end create
 
     // OnClicks
@@ -327,7 +338,10 @@ class CommonRoom extends Phaser.Scene {
     onControlDoorClick(){
         this.scene.start("controlRoom");
     }
-
+    pickUpSparkPlug(){
+        foundSparkPlug = true;
+        this.sparkPlug.setVisible(false);
+    }
     wallPaintingRotation(){
         timesClicked +=1;
         if(timesClicked >= value && paintingPuzzleSolved == false){
